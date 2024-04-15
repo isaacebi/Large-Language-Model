@@ -1,0 +1,3639 @@
+Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+Contents lists available at ScienceDirect
+
+Journal of King Saud University – Computer and
+Information Sciences
+
+j o u r n a l h o m e p a g e : w w w . s c i e n c e d i r e c t . c o m
+
+A survey on ﬁsh classiﬁcation techniques
+
+Mutasem K. Alsmadi
+
+⇑
+, Ibrahim Almarashdeh
+
+Department of MIS, College of Applied Studies and Community Service, Imam Abdulrahman Bin Faisal University, Dammam, Saudi Arabia
+
+a r t i c l e
+
+i n f o
+
+a b s t r a c t
+
+Article history:
+Received 4 April 2020
+Revised 12 July 2020
+Accepted 13 July 2020
+Available online xxxx
+
+Keywords:
+Features extraction
+Shape features
+Texture features
+Color features
+Image segmentation
+Fish classiﬁcation algorithms
+
+Fish classiﬁcation (FC) is an expansively studied problem in the domains of image segmentation, pattern
+recognition, and information retrieval. It has been applied in a countless number of domains including
+target marketing. Meanwhile, governments are obliged to maintain the ﬁsh supply and balance between
+the ecosystem, commercial, agriculture ﬁeld, marine scientists, and industrial arena of ﬁsh including the
+nutrition and canning factories. The various FC techniques performance is compared relying on the avail-
+ability of preprocessing and feature extraction methods, the number of extracted features and classiﬁca-
+tion accuracy, the number of ﬁsh families/species recognized. This survey also reviewed the use of
+Databases such as Fish4-Knowledge (F4K), knowledge database, and Global Information System (GIS)
+on Fishes and other FC databases. The study on preprocessing methods features extraction techniques
+and classiﬁers are gathered from recent works to enhance the understanding of the characteristics of pre-
+processing methods, features extraction techniques, and classiﬁers to guide future research directions
+and compensate for current research gaps.
+(cid:1) 2020 The Authors. Production and hosting by Elsevier B.V. on behalf of King Saud University. This is an
+open access article under the CC BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+1. Introduction
+
+Fish classiﬁcation (FC) is the act of identifying and recognizing
+ﬁsh species and families relying on their features. It identiﬁes
+and categorizes the target ﬁsh into species relying on the similarity
+with the representative specimen image (Ogunlana et al., 2015).
+This process is essential for feature extraction, pattern and contour
+matching, determination of behavioral and physical traits, and
+quality control of ﬁsh species (Bermejo, 2007). FC is considered
+helpful for ﬁsh population assessments and counting, monitoring
+ecosystems, and description of ﬁsh associations (Cabreira et al.,
+2009). Precise ﬁsh species recognition is vital because of the legal
+restrictions on ﬁshing practices, especially when their existence
+is endangered or threatened.
+
+Currently, notwithstanding its commercial and agricultural
+value, ﬁsh recognition is regarded as a highly complicated and
+multifaceted task (Ding et al., 2017; Hnin and Lynn, 2016; Al
+Smadi, 2016). Also, all types of solutions for automatic FC should
+
+⇑ Corresponding author.
+
+E-mail address: mksalsmadi@gmail.com (M.K. Alsmadi).
+
+Peer review under responsibility of King Saud University.
+
+Production and hosting by Elsevier
+
+consider several elements such as the orientation of ﬁsh and arbi-
+trary size; variability of feature; changes in the environment; poor
+image quality; segmentation failures; imaging conditions; physical
+shaping (Ogunlana et al., 2015; Alsmadi et al., 2012, 2011a, 2019).
+Research in FC can be traced back to 1994 (Castignolles et al.,
+1994). The authors attempt to automatically classify the ﬁsh
+images by using the off-line detection method with static thresh-
+olds for segmenting ﬁsh images that were captured by tapes of
+S-video and improve the contrast of images by the use of back-
+ground lighting. Moreover, to classify the ﬁsh species a Bayes clas-
+siﬁer was used after extracting twelve geometrical features from
+ﬁsh images. However, because of the insufﬁciency such as ﬁsh
+alignment close to each other, this work has not received much
+attention. Zion et al., (1999, 2000) pursued this research and
+reached optimistic
+results using moment-invariants when
+extracted several geometrical features from three ﬁsh species. Sub-
+sequently, many researchers were following on this topic and a sig-
+niﬁcant amount of efforts were made to ﬁnd the optimal FC
+method.
+
+Later Lee et al. (2003) used the critical landmark points using
+Curvature Function (CF) analysis on the ﬁsh contour to extract
+the shape features such as Adipose-ﬁn length and Anal-ﬁn length
+to automatically identify ﬁsh species. These methods obtained
+good classiﬁcation accuracy.
+
+Also, Lee et al. (2008)) examined several shape descriptors, for
+example,
+line segments, polygon approximation, and Fourier
+descriptors, and CF analysis for ﬁsh images categorizing using the
+
+https://doi.org/10.1016/j.jksuci.2020.07.005
+1319-1578/(cid:1) 2020 The Authors. Production and hosting by Elsevier B.V. on behalf of King Saud University.
+This is an open access article under the CC BY-NC-ND license (http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+2
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+critical landmark points features that were extracted from contour
+representation. However, the main difﬁculties of these methods
+(Lee et al., 2003, 2008) are that feature location and measurements
+sometimes cannot be located very accurately and are manually cal-
+culated. Moreover; more efﬁcient methods for ﬁnding the essential
+landmark points are required.
+
+Although FC based on extracted features from color signature
+and texture descriptors has attained signiﬁcant success, neverthe-
+less, the classiﬁcation accuracy is still considerably inﬂuenced by
+feature variability and conditions of illumination (Alsmadi et al.,
+2019; Nery et al., 2005). Many researchers have shifted to use
+the combination between the extracted features from the shape
+and texture measurements because of its potential capabilities to
+enhance the FC accuracy (Badawi and Alsmadi, 2014; Alsmadi,
+2019).
+
+Recently, many researchers used the BP algorithm, Support
+Vector Machines (SVMs) for FC such as (Alsmadi, 2019; Sharmin
+et al., 2019). Also, Chhabra et al. (2020) employed a hybrid Deep
+Learning (DL) model and used a pre-trained VGG16 model for
+feature extraction, and Stacking ensemble model for detecting
+and classifying ﬁsh images. Many ﬁelds such as (Checcucci et al.,
+2019) are applying DL based methods, these methods have a great
+advantage over traditional algorithms in object classiﬁcation and
+computer vision (Thorat et al., 2020). The performance of various
+classiﬁcation systems was enhanced by combining DL methods,
+Deep CNN shows signiﬁcant results in the image processing by
+using DL approaches for training large-scale datasets of ﬁsh images
+(Cui et al., 2020; Taheri-Garavand et al., 2020), and the classiﬁca-
+tion accuracy of ﬁsh images has been signiﬁcantly increased using
+the DL methods (Zheng et al., 2018; Miyazono and Saitoh, 2018).
+Moreover; DL algorithms can detect simple features easily like
+simple shapes, edges, . . ..etc (Chhabra et al., 2020; Sung et al.,
+2017). Also, they can detect features that human beings can’t
+distinguish.
+
+The most important stage of FC is the extraction of the features,
+it comprises two forms which are appearance-based (such as col-
+ors and textures) and geometric-based. In geometric-based feature
+extraction, the local features (local statistics and locations) such as
+ﬁsh mouth length, anal ﬁn length, ﬁsh head angle, eye-end mouth
+angle, and caudal ﬁn length are extracted from ﬁsh images. The
+appearance-based feature extraction characterizes the appearance
+information brought by different ﬁsh objects in the whole-ﬁsh or
+speciﬁc regions in a ﬁsh image. Next, in the feature selection step,
+a subset of relevant features will be selected to classify different
+ﬁsh images into species/families. Also, a learning algorithm is con-
+sidered to be an essential process in which the ﬁsh image is cate-
+gorized into families/species such as garden ﬁsh, food ﬁsh, poison
+ﬁsh, non-poison ﬁsh. The geometrically based feature extraction
+includes the length of the body, anal ﬁn, caudal ﬁn, dorsal ﬁn, pel-
+vic ﬁn, and other components of ﬁsh. Also; the feature extraction
+based on appearance includes the color signature, gray texture,
+and other features. However, such features are sensitive to changes
+in scale, illumination levels, and noise.
+
+2010a,b, 2011a,b, 2012; Badawi and Alsmadi, 2014;
+
+According to the state-of-the-art literature (Ogunlana et al.,
+2015; Ding et al., 2017; Hnin and Lynn, 2016; Alsmadi et al.,
+_
+Is(cid:1)çizMEN
+et al., 2014; Badawi and Alsmadi, 2013; Singh and Pandey, 2014;
+Ali-Gombe et al., 2017), there is no such review study has done
+before about the preprocessing methods, features extraction meth-
+ods, classiﬁcation algorithms and the datasets that were used for
+FC. While this study presents a survey of diverse preprocessing
+methods, feature extraction methods, classiﬁers algorithms, and
+the datasets that were used for FC. This study will be important
+and beneﬁcial for the agricultural domain and marine scientists
+and can be utilized to investigate the marine world. Thereby, it will
+
+help ﬁsheries biologists to collect and process their data. More-
+over; this study will be important and beneﬁcial for the industrial
+ﬁeld of ﬁsh such as the nutrition and canning factories which can
+utilize this research to classify ﬁsh into dangerous and non-
+dangerous families, to classify the dangerous ﬁsh families into
+predatory and poison ﬁsh families, and to classify the non-
+dangerous ﬁsh families into garden and food ﬁsh families.
+
+This paper surveys over 80 papers that describe features extrac-
+tion methods and classiﬁcation algorithms of FC to answer three
+questions:
+
+(cid:1) What preprocessing methods are being used to improve the
+
+performance of the FC system?
+
+(cid:1) What methods are being used to achieve the extraction of
+robust features which are invariant under translation, scaling,
+and rotation?
+
+(cid:1) What algorithms are being used to classify ﬁsh images?
+
+Based on the literature review, this paper generally concen-
+trates on various FC techniques and methods with the main steps:
+ﬁrstly preprocessing, secondly feature extraction, and thirdly clas-
+siﬁcation. Moreover; this work demonstrates the performance
+analysis of various FC techniques and their advantages, and pro-
+vides important ideas for future FC research. However; this paper
+does not address video-based techniques.
+
+In essence, besides the introduction section, this paper is orga-
+nized as the following: Section 2 explores the methods related to
+the preprocessing, features extraction and classiﬁcation algorithms
+for FC; section 3 discusses the dataset used for FC; section 4 eval-
+uates the FC techniques performance using different charts and
+tables; section 5 provides the future research directions, and sec-
+tion 6 concludes this survey.
+
+2. FC system
+
+The FC system overview is demonstrated in Fig. 1. It includes
+the three main steps of FC ﬁrstly ﬁsh image preprocessing, second
+feature extraction, and ﬁnally classiﬁcation step.
+
+2.1. Preprocessing
+
+The process of preprocessing can be used for improving the FC
+system performance and it is carried out before the process of fea-
+ture extraction (Hnin and Lynn, 2016; Alsmadi et al., 2012). The
+preprocessing of images comprises of a variety of processes such
+as contrast adjustment, converting the ﬁsh image into a grayscale
+image, scaling, suppressing background noise, highlighting the tar-
+get area of the image and eliminating noise. There are, also,
+enhancement processes to improve the reliability and efﬁciency
+of the features extraction (Alsmadi et al., 2012).
+
+The processes of scaling and cropping were done for the ﬁsh
+image where the ventral part of the ﬁsh is considered as the mid-
+point, also the other essential ﬁsh components are physically
+included (Alsmadi et al., 2012, 2010; Hu et al., 2012). Sobel edge
+operator and some morphological operations are performed to
+get the binary image from the ﬁsh image (Amanullah Baloch
+et al., 2017). Where the Sobel operator is a discrete differentiation
+operator, that computes an estimation of the image intensity func-
+tion gradient (Vincent and Folorunso, 2009). The advantages of
+Sobel edge operator are its simplicity and detection of edges and
+their orientations, but its drawback is the sensitivity to noise.
+
+Grabcut’s algorithm was used for image background removal
+(Hernández-Serna and Jiménez-Segura, 2014). Morphological
+operations are executed on the ﬁsh image to acquire the binary
+image (Abdeldaim et al., 2018). The authors in (Abdeldaim et al.,
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+3
+
+Fig. 1. FC system architecture.
+
+2018) used Grabcut algorithm to segment ﬁsh object from image
+background and some morphological operations to remove
+unwanted shapes from images, which are: opening operator which
+removes the foreground object boundaries, and it is beneﬁcial for
+eliminating small white noises, and closing operator which is ben-
+eﬁcial in small black points closing on the object or small holes
+closing on the foreground objects (Abdeldaim et al., 2018). The
+nearest-neighbor method is utilized for input images resizing
+which provides the image’s smoothness.
+
+Image Filtration is also another important step in the prepro-
+cessing phase. The main goal of image ﬁltration is to enhance the
+knowledge of the image’s information to obtain an enhanced
+image from the unclear input image. Image Filtration was applied
+for image smoothing and variations reduction in the ﬁsh images
+(Alsmadi et al., 2012; Sayed et al., 2018) using the median ﬁlter
+and to achieve an enhanced ﬁsh image (Hernández-Serna and
+Jiménez-Segura, 2014; Sayed et al., 2018). The anchor points
+method is utilized for the distance and angle measurement extrac-
+tion which is more robust to characteristic differences in the FC
+system and it enhance the accuracy of the potential local geometric
+features (Ogunlana et al., 2015; Badawi and Alsmadi, 2014;
+Alsmadi et al., 2010, 2011, 2012, 2019; Saitoh et al., 2016; Kutlu
+et al., 2017; Al Smadi, 2016).
+
+Object detection is a preprocessing method and it uses the
+Viola-Jones algorithm (VJ) to detect and identify the ﬁsh object
+from the input image (Matai et al., 2010). The closing and opening
+operations of mathematical morphology are used (Yao et al., 2013)
+to separate the target and background, followed by border extrac-
+tion to get a more complete ﬁsh outline. The normalization process
+is the preprocessing technique that is applied to resize the ﬁsh
+image to the adopted size and to rotate the ﬁsh image to its stan-
+dard position to eliminate the differences between dataset images,
+these differences are problematic for features calculation (Alsmadi
+et al., 2012; Miyazono and Saitoh, 2018; Saitoh et al., 2016). Also,
+normalization in the preprocessing stage eliminates the variation
+problems in the images. One of the most important types of pre-
+processing methods is the Region of Interest (ROI) method that is
+used to determine the region of the ﬁsh image (for example eye
+pupil or forehead region) which is used to differentiate between
+ﬁsh species/families (Amanullah Baloch et al., 2017; Is(cid:1)çimen
+et al., 2018). Histogram equalization is one of the most common
+enhancement approaches in FC, The histogram equalizer was used
+to equalize the color of ﬁsh image (Mokti and Salam, 2008). This
+technique is utilized to overcome the variations in illumination.
+It is used for increasing the ﬁsh image contrast, to measure the
+quality of the ﬁsh image, and to enhance the distinction between
+the intensities.
+
+The preprocessing step is usually performed before features are
+extracted from the ﬁsh image, it is necessary to enhance the read-
+ability of the ﬁsh image, remove noise, resize image g, etc. The pre-
+processing step makes the feature extraction step more reliable,
+accurate, and has a signiﬁcant impact on classiﬁcation perfor-
+mance. In FC, many preprocessing methods are utilized, however,
+the cropping process and ROI are the most appropriate since it
+detects the ﬁsh characteristics precisely. Also, the anchor point’s
+method is an essential preprocessing technique for FC because it
+increases the accuracy of the potential local geometric features.
+The image ﬁltration is also an important preprocessing technique
+for FC to achieve an improved ﬁsh image. Finally; these preprocess-
+ing methods assisted to achieve high FC accuracy as in (Ogunlana
+et al., 2015; Badawi and Alsmadi, 2014; Alsmadi et al., 2010,
+2011, 2012, Hu et al., 2012; Saitoh et al., 2016; Mushﬁeldt et al.,
+2012; Al Smadi, 2016).
+
+2.2. Feature extraction
+
+The next step in the FC process is feature extraction. It involves
+depicting and ﬁnding important positive features inside an image
+for further steps of processing. In image processing, feature extrac-
+tion is an important stage, while it highlights the change from gra-
+phic to implicit data depiction. After that, the data depiction is
+used as the classiﬁcation input. The methods of feature extraction
+are classiﬁed into ﬁve types namely: shape feature-based method,
+local and global
+feature-based
+method, texture feature-based method, and combination-based
+feature extraction method.
+
+feature-based method, color
+
+The shape feature-based methods are described as the following:
+Moment-Invariants (MI) combined with geometrical considera-
+tions which are texture descriptors for feature extraction. Hence,
+the method was insensitive to ﬁsh size aside from being two-
+dimensional and located within the view ﬁeld of the camera
+(Zion et al., 1999). Curvature Scale Space (CSS) is also a shape
+descriptor that can be utilized for feature extraction. Generally,
+in the CSS, the target object (foreground part) is transformed into
+a map of Curvature Scale Space (CSS). Next, the CSS map is trans-
+formed into a Circular Vector (CV) map to enable rotation to an
+invariant matching (Sze et al., 1999). CF analysis was used to
+extract the shape features, and to locate critical landmark points
+upon the ﬁsh contour to extract the shape features (Lee et al.,
+2003, 2008). FishID algorithm is an accurate and simple real-time
+contour matching technique speciﬁcally for applications contain-
+ing ﬁsh species classiﬁcation. The technique correctly determines
+the species with greater than 90% accuracy using the size and
+shape features, FishID algorithm was the improvement of a more
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+4
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+accurate classiﬁcation technique (Lee et al., 2008); the authors in
+(Lee et al., 2003, 2008) mentioned ﬁsh shape as the most depend-
+able general characteristic when making a distinction between
+species.
+
+ods to extract the size and shape features (
+
+Landmarks/anchor points method is one of the most used meth-
+_
+Is(cid:1)çizMEN et al., 2014;
+Kutlu et al., 2017). Where ﬁsh size and shape features are extracted
+using distance and angle measurements from the determined
+Landmarks/anchor points (Alsmadi et al., 2011, 2019). The authors
+in (Lee et al., 2003; Alsmadi et al., 2010) reported the effectiveness
+of the landmark/anchor points method in ﬁnding all the crucial
+points for FC according to shape characteristics. Furthermore, to
+improve the classiﬁcation accuracy, the authors proposed the
+extraction of more landmark/anchor points features particularly
+in the situation where there are more species to be classiﬁed. For
+example, a comparison of the width of the dorsal ﬁn, as well as
+the length between the dorsal ﬁn and adipose ﬁn, should be taken
+into account since the association of these two differs for various
+species.
+
+For feature selection, there is rarely a good way to choose
+appropriate Feature Subset Selection (FSS) algorithms for various
+dataset types. Therefore; through selecting suitable attributes,
+the FSS algorithm automatic recommendation is a useful step for
+efﬁcient FC (Hnin and Lynn, 2016). A combination based Features
+Selection algorithm is used for feature selection, the algorithm
+focuses on enhancing the performance of the classiﬁer using
+unknown data (Hnin and Lynn, 2016). A scheme for ﬁsh image seg-
+mentation and ﬁsh morphological features indicators measure-
+ments was proposed based on the Mask R-CNN algorithm (Yu
+et al., 2020). The scheme that was proposed effectively segmented
+the ﬁsh body in complex and pure backgrounds with prominent
+results.
+
+Single Value Decomposition (SVD) was used to extract the fea-
+tures from the ﬁsh image which is a factorization of a complex or
+real matrix, a moving overlapping window divided the ﬁsh image
+into ﬁfteen image blocks, as the window moves from head to tail
+region of the grey-level ﬁsh image, the feature values are extracted
+from every area occupied by a window and combined to form fea-
+ture vector, then the feature vector is passed as input data to ANN
+algorithm to classify ﬁshes into different species (Daramola and
+Omololu, 2016). The non-rigid part model efﬁciently discovers dis-
+criminative parts of ﬁsh by adopting saliency and relaxation label-
+ing. Consequently; discrimination of ﬁsh parts, separation, and
+ﬁtness are considered to be meaningful in identifying in an unsu-
+pervised manner representation of ﬁsh body parts (Chuang et al.,
+2016).
+
+Scale Invariant Feature Transform (SIFT) is an algorithm for fea-
+ture detection in computer vision and is used to describe and
+detect local features in digital images (Karami et al., 2017). It
+locates and extracts certain key points of the objects from a set
+of reference images and then provides them with measurable
+information (so-called descriptors) which can be used for object
+recognition (Fouad et al., 2013). The descriptors are assumed to
+be invariant against different transformations which could make
+the images that represent the same object(s) look different. SIFT
+is used for matching ﬁsh images, by ﬁnding the important key
+points in two ﬁsh images and matching those key points against
+other ﬁsh images. Mainly; SIFT used dimensionality reduction to
+ﬁnd these key points. Also, it is robust to rotation, variations in
+scale, and illumination in the test set images (Matai et al., 2010).
+Salp Swarm Algorithm (SSA) is a random population-based
+algorithm that was proposed by Mirjalili et al. in (Mirjalili et al.,
+2017), it mimics the salps swarming mechanism when looking
+for food in oceans. Salps in heavy oceans usually form a swarm
+known as a salp chain, the leader in this algorithm is the salp at
+
+the front of the chain and the rest of the salps are called followers.
+Like the other swarm-based techniques, the salps position is iden-
+tiﬁed in an s-dimensional search space, where s is the variables
+number of certain problems. Thus, the all salps position is stored
+in a 2D-dimensional matrix (z). In the search space, it is also
+assumed that there is a food source called P as a target for the
+swarms. SSA is used for ﬁsh image segmentation and feature
+extraction,
+the mathematical
+description of SSA please refer to (Ibrahim et al., 2018). The Simple
+Linear Iterative Clustering (SLIC) method was formulated for the
+segmentation process with initial parameters optimized by the
+SSA to generate nearly uniform and compact super-pixels
+(Ibrahim et al., 2018). SLIC is among the most essential super-
+pixels segmentation algorithms which require low computational
+power (Ibrahim et al., 2018).
+
+for further explanations about
+
+The local and global feature-based methods are elaborated as fol-
+lows: Local features can generate better results for ﬁsh image seg-
+mentation compared to global features because different ﬁsh
+species have different textures, color signatures, and shape fea-
+tures in their body parts. Fish Image Segmentation Algorithm
+(FISA) is used to separate the ﬁsh object into three segments body
+part (head, abdomen, and tail parts) (Amanullah Baloch et al.,
+2017). Speeded Up Robust Features (SURF) are partly inspired by
+the SIFT which are descriptors that were used for locating and rec-
+ognizing, tracking, and extracting points of interest of the objects.
+SIFT and SURF algorithms are local feature descriptors which
+extract the local features such as pixel gradients and key point
+localization from Tilapia ﬁsh images (Fouad et al., 2013, 2016). A
+ﬁsh detection method based on the BAT optimization algorithm
+was proposed (Fouad et al., 2016). Other work used SURF for local
+feature extraction (Freitas et al., 2013). CNN was used to extract
+and classify the ﬁsh images with low- resolution (Rachmatullah
+and Supriana, 2018). Also, the data augmentation was employed
+to handle an imbalance within the data. The authors in (dos
+Santos and Gonçalves, 2019) used two convolutional layers com-
+bined with data augmentation and dropout, the accuracy of the
+proposed model was 99.7% on testing data. A CNN was used to
+classify the Pantanal ﬁsh species and improve the classiﬁcation
+of ﬁsh species with similar characteristics. The proposed CNN
+was formed of three branches that classify the ﬁsh species, family
+and order, the obtained results based on unlimited image dataset
+showed that the proposed CNN offered superior results compared
+with traditional methods (dos Santos and Gonçalves, 2019). A com-
+puter vision method based on DL techniques was proposed in
+(Siddiqui et al., 2018), in order to avoid the need for a large number
+of training data, a cross-layer pooling algorithm using a pre-trained
+CNN as a generalized feature detector was introduced. Then, the
+SVM was used to perform the classiﬁcation on test data using
+the features calculated from the proposed method with an accu-
+racy rate of 94.3% for ﬁsh species (Siddiqui et al., 2018). An
+improved transfer learning method and squeeze-and-excitation
+networks was presented in (Qiu et al., 2018) for ﬁne-grained ﬁsh
+image classiﬁcation using small scale and low-quality datasets.
+The proposed method accomplishes better results in ﬁsh image
+classiﬁcation.
+
+The color feature-based methods are elaborated as follows: Color
+Space is another descriptor that is used to extract the features for
+FC (Hu et al., 2012; Is(cid:1)çimen et al., 2018; Freitas et al., 2013). Fea-
+ture sets for both color spaces (RGB and HSV) are extracted using
+the red, green, blue components of the RGB color space and hue,
+saturation, value components of the HSV color space are used sep-
+arately for FC (Is(cid:1)çimen et al., 2018). Grabcut algorithm is a fore-
+ground extraction algorithm that can be used when background
+and foreground color distributions are not well separated. Grabcut
+Algorithm relies on graph cuts and operates by determining a
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+5
+
+bounding box surrounding the object to be segmented. Thus; the
+whole image is used as a bounding box and the algorithm approx-
+imates the target object and background color distribution. The
+Grabcut algorithm is applied to detect and segment ﬁsh from nat-
+ural images even with different circumstances using RGB color
+space (Abdeldaim et al., 2018). RGB is suitable for color display
+but it is a poor choice for color scene analysis because of the high
+correlation among IR; IG, and IB (Hu et al., 2012). Paschos found that
+HSV performs better for color texture classiﬁcation (Paschos,
+2001). Therefore; ten extracted color features using RGB and HSV
+color spaces were extracted for ﬁsh image classiﬁcation (Hu
+et al., 2012), these features are R mean, G mean, B mean, RGB
+mean, RGB standard deviation, H mean, S mean, V mean, HSV mean
+and HSV standard deviation. Other work used several color feature
+extraction methods which are Bag of Visual Words, HSV and RGB
+color histograms, Bag of features and colors, Bag of colored words,
+and a bag of colors (BoCW) (Freitas et al., 2013).
+
+The texture feature-based extraction techniques are elaborated as
+follows: The Gray-level co-occurrence matrix (GLCM) is a feature
+extraction texture descriptor and it considers the spatial relation-
+ships of pixels and characterizes the texture of the ﬁsh image
+through calculating the frequency of occurrence of speciﬁc values
+and speciﬁc spatial relationship of pixel pairs in an image, which
+creates a GLCM, then statistical measures are extracted from the
+GLCM (Alsmadi et al., 2011). GLCM is applied to extract color sig-
+nature using RGB color space and color histogram technique from
+the ventral part of the ﬁsh object. Then, three statistical features
+which are standard deviation, homogeneity, and energy were cal-
+culated (Alsmadi et al., 2011). Another work (Alsmadi et al.,
+2010) used GLCM to extract color texture from the colored ﬁsh
+image, the ﬁsh image was divided into 4 * 4 blocks. Then, for each
+block six statistical features which are average, dissimilarity, stan-
+dard deviation, homogeneity, contrast, and energy were calculated
+using GLCM. GLCM gives a good degree of accuracy in discriminat-
+ing color signature (Alsmadi et al., 2011) and color texture
+(Alsmadi et al., 2010). Another work (Wishkerman et al., 2016)
+used GLCM to extract texture features after converting the color
+ﬁsh image into a grayscale image followed by data dimension
+reduction procedures.
+
+Gabor Filter (GF) is a feature extraction texture descriptor and it
+is used for edge detection, it relies on the orientation representa-
+tions and frequency, it is employed in several pattern recognition
+applications i.e., iris identiﬁcation, hand vein identiﬁcation, and
+ﬁngerprint identiﬁcation (Badawi and Alsmadi, 2014). Four fea-
+tures (contrast, standard deviation, mean, and homogeneity) were
+calculated for FC using the GF output image (Al Smadi, 2016;
+Badawi and Alsmadi, 2014). GF was also used to extract texture
+features from ﬁsh Images (Kumar, 2018). GF can be deﬁned as a
+sinusoidal plane of particular orientation and frequency, modu-
+lated by a Gaussian envelope.
+
+The combination-based feature extraction methods are described
+as follows: Analyzing a series of texture, color, and shape of the ﬁsh
+image and combining their variations became the fundamental
+step to discriminate between the ﬁsh species and enhance the clas-
+siﬁcation accuracy rate (Alsmadi et al., 2012; Badawi and Alsmadi,
+2014; Sharmin et al., 2019; Kaya et al., 2018). The combined prin-
+cipal component analysis weighs the texture and shape based on
+the generalized variances of the two types of variation, then the
+weights were used to discriminate between the three ﬁsh species
+(Larsen et al., 2009). A large set (47 different features) of combined
+extracted shape measurements (19 features), size measurements
+(4 features), texture measurements (16 features), and color signa-
+ture (8 features) from different ﬁsh species were extracted for FC.
+These combined features signiﬁcantly improved the performance
+of FC (Nery et al., 2005). The hybrid Mean-shift with Median-cut
+algorithms have been used to obtain more region boundaries and
+
+eliminate unwanted and small regions. Therefore; LUV color space
+was used to ensure the isotropy of the feature space and then the
+ﬁsh contour was detected using the Canny edge method (Mokti
+and Salam, 2008). A general FC was performed using the combina-
+tion between signiﬁcant extracted anchor points (using distance
+and angle measurements), texture and statistical measurements
+to classify the ﬁsh images into dangerous and non-dangerous fam-
+ilies, classifying the dangerous ﬁsh families into Predatory and Poi-
+son ﬁsh family, as well as classify the non-dangerous ﬁsh families
+into garden and food ﬁsh family (Al Smadi, 2016; Alsmadi et al.,
+2019; Badawi and Alsmadi, 2014). Shape- and texture-based ﬁsh
+image recognition system (FIRS) used the simple shape character-
+istics, color, and ﬁsh size features for the classiﬁcation process
+(Pornpanomchai et al., 2013). The deep Convolutional Neural Net-
+work (CNN) method is used to extract feature maps from noisy ﬁsh
+images (Ali-Gombe et al., 2017). Texture-based features and shape-
+based features were used to extract 22 texture features using
+GLCM, also, 16 local and shape features were extracted from the
+segmented ﬁsh image. Then, the binary crow search algorithm
+(BCSA) is employed as a feature selection algorithm based wrapper
+method to select the optimal feature subset (Sayed et al., 2018).
+RGB, HSV, CIELa*b*, CIE 1931 XYZ color spaces, and normalized
+RGB values were used to extract twenty-three color features, also
+four texture features (Contrast, Energy, Homogeneity, and Correla-
+tion) were extracted using GLCM (Saberioon et al., 2018). A series
+of 15 morphological, geometrical, and texture features were
+extracted from the ﬁsh image using shape measurements, statisti-
+cal approximation, and two-dimensional Cartesian moments
+(Hernández-Serna and Jiménez-Segura, 2014). In Takeshi et al.
+(Saitoh et al., 2016), Seven geometric features were extracted using
+four feature points and several texture features were extracted
+using Histogram of Oriented Gradient (HOG), LBP, GLCM, Discrete
+Cosine Transformation (DCT), Run Length Matrix (RLM), and
+Shape-pass Nonlinear Filter (NF).
+
+Feature extraction involves transforming the original data to a
+data set contains the most discriminatory information, this infor-
+mation (denoted by a reduced number of variables) will most
+meaningfully or efﬁciently represent the information that is impor-
+tant for analysis and classiﬁcation (Abhang et al., 2016). As can be
+observed from the above-reported survey papers, the ﬁsh shape
+characteristics appear to be the most commonly used features for
+FC. As shown in several works (Alsmadi et al., 2012, 2019; Lee
+et al., 2008; Sayed et al., 2018), the various information of shape
+characteristics is highly essential in the improvement of ﬁsh recog-
+nition accuracy and is invariant to scaling, translation, and rota-
+tion. This owes to the fact that ﬁsh image can be captured from
+diverse locations and angles, and with different sizes. For instance,
+subtle differences in shape that are based on each species can be
+determined through analysis of distinguishable landmarks/anchor
+points, for example, ﬁns insertion, nose tip, as well as margin of
+operculum which illustrate the shape of ﬁsh’s body and head.
+Moreover; the analysis of a series of textures, colors and shapes
+of the ﬁsh image and their combined extracted features has
+become the fundamental step to utilize their ability to discriminate
+between the ﬁsh species and enhance the classiﬁcation accuracy
+rate. From the results, it appears that ﬁsh shape feature and the
+combination of features are the most dependable common charac-
+teristics in ascertaining the ﬁsh’s species or families.
+
+2.3. Classiﬁcation
+
+Classiﬁcation is the ﬁnal step of the FC system, the ﬁsh is clas-
+siﬁed by the classiﬁer into either families such as dangerous, non-
+dangerous, predatory, poison, garden, and food families or into
+species such as Ariomma brevimanum, Acanthurus grammoptilus
+and Acropoma lecorneti.
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+,
+
+.
+
+h
+t
+t
+p
+s
+:
+/
+/
+d
+o
+i
+.
+o
+r
+g
+/
+1
+0
+1
+0
+1
+6
+/
+j
+.
+j
+k
+s
+u
+c
+i
+.
+2
+0
+2
+0
+0
+7
+0
+0
+5
+
+.
+
+.
+
+P
+l
+e
+a
+s
+e
+
+c
+i
+t
+e
+
+t
+h
+i
+s
+
+a
+r
+t
+i
+c
+l
+e
+
+a
+s
+:
+
+M
+
+.
+
+K
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+
+a
+n
+d
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+
+,
+
+A
+s
+u
+r
+v
+e
+y
+
+o
+n
+
+ﬁ
+s
+h
+
+c
+l
+a
+s
+s
+i
+
+ﬁ
+c
+a
+t
+i
+o
+n
+
+t
+e
+c
+h
+n
+i
+q
+u
+e
+s
+,
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+K
+i
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+Table 1
+FC techniques with their classiﬁcation algorithms.
+
+Author
+
+Preprocessing Method
+
+Feature Extraction Method
+
+Hernández-Serna and Jiménez-Segura (2014)
+Zion et al. (1999)
+Lee et al. (2003)
+Lee et al. (2008)
+Mokti and Salam (2008)
+Nery et al. (2005)
+
+Grabcut’s algorithm, smooth, median ﬁlters
+Normalization
+Fish detection
+Fish detection
+Histogram equalizer
+Not reported
+
+Wishkerman et al. (2016)
+Hossain et al. (2016)
+Alsmadi et al. (2010)
+Alsmadi et al. (2010)
+Alsmadi et al. (2011)
+Badawi and Alsmadi (2014)
+Alsmadi et al. (2011)
+Kutlu et al. (2017)
+Hnin and Lynn (2016)
+_
+Is(cid:1)çizMEN et al. (2014)
+
+Hu et al. (2012)
+Ogunlana et al. (2015)
+Daramola and Omololu (2016)
+Qin et al. (2016)
+
+Kratzert and Mader (2018)
+Freitas et al. (2013)
+
+Resizing, Cropping
+GMM
+Median ﬁlter and anchor points detection
+Fish region cropping
+Fish region cropping
+Anchor points detection
+Anchor points detection
+Anchor points detection
+Mean imputation
+Not reported
+
+Fish region cropping, resizing the ﬁsh image
+Anchor points detection
+Converted color ﬁsh images to grey-level image
+Sparse and low-rank matrix decomposition,
+resizing the ﬁsh image
+Fish detection
+Resizing ﬁsh image
+
+Mushﬁeldt et al. (2012)
+
+ROI and ﬁsh region cropping
+
+Chuang et al. (2016)
+
+Not reported
+
+Matai et al. (2010)
+Saitoh et al. (2016)
+
+Miyazono and Saitoh (2018)
+Pornpanomchai et al. (2013)
+
+Jäger et al. (2016)
+Fouad et al. (2013)
+
+Al Smadi (2016)
+
+Ali-Gombe et al. (2017)
+Sayed et al. (2018)
+Kartika and Herumurti (2016)
+
+Chen et al. (2017)
+Andayani et al. (2019)
+
+Alsmadi et al. (2019)
+
+Alsmadi (2019)
+Sharmin et al. (2019)
+
+Islam et al. (2019)
+Chhabra et al. (2020)
+
+Fish detection
+Anchor points detection, normalization
+
+Image size normalization, annotated image method
+Size adjustment, grayscale conversion, black and
+white conversion, noise removal, edge detection
+and object segmentation.
+Fish detection, blob detection method
+Not reported
+
+Converted color ﬁsh images to the grey-level image,
+anchor points detection
+Isolating individual ﬁsh, resizing the ﬁsh image
+Image enhancement using the median ﬁlter
+Separate the ﬁsh object from the background,
+resizing the ﬁsh image
+Fish detection, pose estimation and alignment
+Cropping, scaling, ROI, grayscale color mode and
+HSV color mode
+Grayscale conversion, anchor points detection, ﬁsh
+region cropping
+Fish region cropping, anchor points detection
+Resizing ﬁsh image, conversion to grayscale and
+histogram formation
+Not reported
+Not reported
+
+Geometrical, morphological, texture features
+Moment-Invariants (MI)
+CF, distance measurements
+CF, landmark points
+Canny edge method, hybrid of mean-shift and median-cut
+Minimum Enclosure Rectangle (MER), Aspect ratio, squared perimeter,
+moments, co-occurrence matrix, YUV and HIS color models, feature
+ranking approach
+GLCM
+PHOW
+distance and angle measurements
+GLCM
+GLCM, color histogram
+GF, distance and angles measurements, statistical Measurements
+distance and angles measurements
+Distance measurements
+FSS algorithms
+Landmarks/anchor points detection, Euclidean network technique,
+Quadratic network technique, Triangulation technique
+GH, GLCMs, Wavelet Transform, RGB and HSV color Features
+Optimal Separating Hyper-plane (OSH), The Margin of Separation (MS)
+SVD
+Deep architecture, binary hashing, spatial pyramid pooling, PCA
+
+FishCam monitoring system
+SURF, Bag of visual words, HSV and RGB color histograms, bag of
+features and colors, bag of colors and Bag of Colored Words (BoCW)
+Mouse click, HSV color space, adaptive threshold, Histogram
+representation,
+Non-rigid part model
+
+SIFT
+LBP, HOG, DCT, GLCM, RLM, shape-pass NF, distance and angles
+measurements
+Plotting method, Gaussian ﬁlter
+EDM
+
+CNN features, binary SVM classiﬁer
+SIFT, SURF
+
+GF, distance and angles measurements, statistical measurements
+
+VGG-16 model, transfer learning model
+BCSA, wrapper method
+RGB and HSV colors features
+
+Image-level and instance-level classiﬁcation.
+Geographical invariant moment features, Gray Level Co-occurrence
+Matrix texture features and HSV color feature extraction
+GLCM, distance and angles measurements, statistical measurements
+
+GLCM, distance and angles measurements
+RGB and HSV colors features, geometric measurements, GLCM
+
+6
+
+M
+K
+
+.
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+,
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+/
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+i
+
+K
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+
+x
+x
+x
+
+(
+x
+x
+x
+x
+)
+
+x
+x
+x
+
+Classiﬁcation Algorithm
+
+Neural Networks
+Average test-set classiﬁcation error
+MDC
+TADA
+Not speciﬁed
+Bayesian classiﬁer
+
+PCA and LDA
+SVM
+BP algorithm
+BP algorithm
+BP algorithm
+GAILS-BPC
+HGAGD-BPC
+Nearest Neighbour algorithm
+SVM
+Naive Bayesian classiﬁer
+
+multiclass SVM
+SVM
+BP algorithm
+linear SVM classiﬁer
+
+CNN
+SVM, KNN, DT
+
+SVM
+
+Hierarchical partial classiﬁer
+algorithm
+PCA algorithm
+RF
+
+CNN
+ANN
+
+multiclass SVM
+ANN classiﬁer
+SVM algorithm
+BP algorithm, GAGD-BPC
+
+Deep CNN
+SVM and DT
+SVM and Naive Bayes algorithm
+
+CNNs
+Probabilistic Neural Network
+
+MA-B Classiﬁer
+
+GTB Classiﬁer
+SVM
+
+Hybrid Local Binary Pattern (HLBP)
+Pre-trained VGG16 model
+
+SVM
+Stacking ensemble model
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+7
+
+In binary images Moment Invariants (MI) are connected regions
+properties that are invariant to scale, rotation and translation. They
+are beneﬁcial since they describe a set of region properties that are
+simply calculated to be used for part recognition and shape classi-
+ﬁcation. The MI method is used for estimating ﬁsh size and recog-
+nition of three ﬁsh species (Zion et al., 1999). Also, Euclidean
+distance metric is utilized for purpose of classiﬁcation, it uses the
+similarity score matrix and the normalized score for Euclidean dis-
+tance estimation, The Euclidean distance measures the similarity
+between every feature of an unknown ﬁsh image and every feature
+of each training data set in the FIRS (Pornpanomchai et al., 2013).
+Minimum Distance Classiﬁer (MDC) is an FC distance-based classi-
+ﬁer that uses the estimation of the distance between the feature
+vectors in the database and the feature vector of the test ﬁsh
+(Lee et al., 2003). Turn Angle Distribution Analysis (TADA) is a
+matching method that allows the contour for the current ﬁsh
+image to be matched against species-speciﬁc contours in the
+FishID database (Lee et al., 2008).
+
+The extracted ﬁsh features were fed into a well-designed 3-
+layer neural network classiﬁer that is trained by a Back Propaga-
+tion (BP) algorithm for the FC task (Hnin and Lynn, 2016; Alsmadi
+et al., 2010a,b, 2011a,b; Hernández-Serna and Jiménez-Segura,
+2014; Daramola and Omololu, 2016; Pornpanomchai et al.,
+2013). A Hybrid Memetic Algorithm (Genetic Algorithm and Great
+Deluge Local Search) together with Back-Propagation Classiﬁer
+(HGAGD-BPC) and Back-Propagation Classiﬁer (BPC) is used also
+for FC (Alsmadi et al., 2011) and another work used the similar
+classiﬁer for ﬁsh image classiﬁcation (Al Smadi, 2016). A hybrid
+meta-heuristic algorithms (genetic algorithm with iterated local
+search) with back-propagation algorithm (GAILS-BPC) for generic
+ﬁsh (classiﬁes the ﬁsh images into families and species) (Badawi
+and Alsmadi, 2014). A hybrid meta-heuristic algorithms (Genetic
+Algorithm with Simulated Annealing) with back-propagation
+algorithm (MA-B Classiﬁer) for generic ﬁsh (classiﬁes the ﬁsh
+images into families and species) (Alsmadi et al., 2019). Inserting
+a local search algorithm to the genetic algorithm (such as iterated
+local search and Great Deluge Local Search) enhances the
+exploitation process rather than the exploration process. The
+Metaheuristic Algorithms (MA) successfully improved the BP per-
+formance by improving and optimizing the weights of the back-
+propagation algorithm.
+
+The Support Vector Machine (SVMs) is utilized for regression
+and classiﬁcation of high dimensional data sets with excellent
+results (Fouad et al., 2013). Support Vector Machine (SVM) is one
+of the classiﬁcation techniques that was used for FC based on the
+number of features extracted from the ﬁsh image dataset (Hnin
+and Lynn, 2016; Fouad et al., 2013; Hossain et al., 2016; Islam
+et al., 2019). Also, SVM is used for the elimination of the limitations
+of some existing techniques such as K-mean Clustering, K-Nearest
+Neighbor (KNN), and Neural Network and enhancing the ﬁsh spe-
+cies classiﬁcation (Ogunlana et al., 2015; Kutlu et al., 2017), also
+multiclass SVM is used for ﬁsh species classiﬁcation (Hu et al.,
+2012). SVM and decision trees (DT) were used for ﬁsh species clas-
+siﬁcation, the ﬁsh species are classiﬁed based on either their class
+or based on their order (Sayed et al., 2018). A linear SVM classiﬁer
+is used for accurate underwater live ﬁsh recognition (Qin et al.,
+2016). Other work used three types of classiﬁers which are SVM,
+KNN, and Decision Tree for FC (Freitas et al., 2013).
+
+Four different classiﬁcations (Random Forest (RF), SVM, Logistic
+regression (LR), and KNN) methods were used to evaluate ﬁsh
+diets. The SVM with radial based kernel provided the best classiﬁer
+with correct classiﬁcation rate (Saberioon et al., 2018). Naive Baye-
+sian classiﬁer is one of the most efﬁcient and effective machine
+learning algorithms and it was used to classify 7 ﬁsh families and
+
+15 ﬁsh species (
+
+_
+Is(cid:1)çizMEN et al., 2014).
+
+The hierarchical partial classiﬁer algorithm was utilized in the
+presence of multiple and partial path classiﬁcations and evaluated
+with both NOAA Fisheries and F4K datasets (Chuang et al., 2016).
+Principal Component Analysis (PCA) algorithm is a statistical
+method under the broad title of factor analysis and it was used
+to identify the ﬁsh species (Matai et al., 2010). PCA and Linear Dis-
+criminant Analysis (LDA) was used to compare and analyze the
+effectiveness of discrimination and classiﬁcation procedures of sole
+skin textural descriptors (Wishkerman et al., 2016).
+
+Deep CNN relies on an untrained VGG-16 network, the network
+model contains 5 blocks of 13 convolution layers and 3 fully con-
+nected layers, and CNN is used for FC using noisy ﬁsh images.
+Other, CNN is composed of two convolutional layers, which are a
+pooling layer, and a fully connected layer. It is used for ﬁsh species
+recognition using the ﬁsh images (Miyazono and Saitoh, 2018;
+Choi, 2015; Rekha et al., 2019). Other work used a CNN together
+with ﬁsh species classiﬁcation, based on the standard classiﬁers
+like SVM and KNN, it was trained on the features extracted from
+ﬁsh images by the CNN in supervised DL (Salman et al., 2016).
+Another work used two different CNN architectures ‘‘scaled-
+down VGG-16” and ‘‘traditional VGG-16” model for FC (Thorat
+et al., 2020).
+
+The Bayesian classiﬁer is used for FC (Nery et al., 2005), the
+effectiveness of the Bayesian classiﬁer has been proved in various
+pattern classiﬁcation problems (Nery et al., 2005). RF is an ensem-
+ble training algorithm that constructs multiple decision trees, RF
+can be used for regression, unsupervised learning, and classiﬁca-
+tion. RF was applied for ﬁsh image classiﬁcation with a number
+of trees M experientially set to 200 and the maximum depth of
+each tree D experimentally was set to 10 (Saitoh et al., 2016).
+
+The FC techniques with their classiﬁcation algorithms are
+shown in Table 1; it involves the algorithms which are utilized
+for the 3 steps which are preprocessing, feature extraction, and
+classiﬁcation. Table 1 demonstrates that the Fish image resizing,
+ﬁsh detection, landmark/anchor points and image cropping meth-
+ods as the most commonly used methods in the preprocessing
+step. For feature extraction; the most commonly used methods
+are distance measurements, angles measurements, GLCM, Gabor
+ﬁlter, SIFT, and SURF. Most of the feature extraction methods rely
+on a combination of features such as combined extracted shape,
+size, texture, and color signature features. For FC; the most com-
+monly used algorithms are SVM, BP algorithm, HGAGD-BPC,
+GAILS-BPC, Bayesian classiﬁer, and CNN. Moreover; SVM,
+HGAGD-BPC, and GAILS-BPC are mostly utilized, they provide the
+best performance compared to other classiﬁers.
+
+3. Database description
+
+Table 2 shows the various databases that were used for FC
+experiments such as Global Information System (GIS) on Fishes
+and Fish4- Knowledge (F4K) databases. The used databases contain
+a different number of species,
+images, and image
+resolutions.
+
+families,
+
+In most of the experiments, the database that was used is in (Al
+Smadi, 2016; Alsmadi et al., 2011a,b, 2010; Badawi and Alsmadi,
+2014, 2013) followed by the database used in (Chuang et al.,
+2016; Qin et al., 2016). The databases in (Alsmadi et al., 2012,
+2011a,b, 2010) contain 20 ﬁsh families with a different number
+of ﬁsh images (320, 350, and 610) and every image has 512 *
+512 pixels resolution.
+
+Compared to other research ﬁelds there is no standard scientiﬁc
+benchmark dataset for FC research and its one of the limitations for
+the researchers in this domain, for example; most of the authors
+used different datasets, some of them used self-collected datasets
+and some of them mentioned the number of ﬁsh families/species
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+8
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+# of Families or Species No. of images
+
+Size
+
+URL
+
+Table 2
+FC Databases description.
+
+Author
+
+Hasija et al. (2017)
+
+Kaya et al. (2018)
+Islam et al. (2019)
+
+Origin
+
+F4K
+
+F4K
+BDIndigenousFish2019
+
+10
+
+3
+8
+
+Zion et al. (1999)
+Nery et al. (2005)
+Hossain et al. (2016)
+Alsmadi et al. (2010)
+Alsmadi et al. (2010)
+Alsmadi et al. (2011)
+Badawi and Alsmadi (2014)
+Alsmadi et al. (2011)
+Hu et al. (2012)
+Ogunlana et al. (2015)
+Qin et al. (2016)
+Kratzert and Mader (2018)
+Freitas et al. (2013)
+Mushﬁeldt et al. (2012)
+Chuang et al. (2016)
+Matai et al. (2010)
+Saitoh et al. (2016)
+Miyazono and Saitoh (2018)
+Pornpanomchai et al. (2013)
+Jäger et al. (2016)
+Abdeldaim et al. (2018)
+Al Smadi (2016)
+Ali-Gombe et al. (2017)
+
+3
+Not reported
+6
+Brazil
+15
+Not reported
+20 ﬁsh families
+Malaysia
+20 ﬁsh families
+Malaysia
+20 ﬁsh families
+Malaysia
+24 ﬁsh families
+GIS on Fishes
+20 ﬁsh families
+Malaysia
+6
+China
+2 families
+Nigeria
+23
+F4K database
+ImageNet dataset
+10
+AQUARIO28E40I dataset 28
+20
+knowledge database
+15
+F4K database
+5
+Not reported
+129
+Japan
+50
+Japan
+30
+FIRS database
+15
+Not reported
+25 ﬁsh families
+Australia
+24 ﬁsh families
+GIS on Fishes
+Not reported
+Not reported
+
+840
+
+130
+2610
+
+146
+99
+20,000
+350
+610
+610
+320
+610
+90
+150
+27,370
+8099
+1120
+200
+26,418
+35
+2580
+1000
+900
+20,000
+270
+320
+3777
+
+Not reported http://homepages.inf.ed.ac.uk/rbf/
+Fish4Knowledge/
+
+Not reported http://groups.inf.ed.ac.uk/f4k/
+3968 * 2796
+
+https://github.com/falvee/
+BDIndigenousFish2019
+768 * 576
+Not available
+Not reported Not available
+http://www.imageclef.org/lifeclef/2015/ﬁsh
+68 * 87
+https://www.ﬁshbase.se/home.htm
+512 * 512
+https://www.ﬁshbase.se/home.htm
+512 * 512
+https://www.ﬁshbase.se/home.htm
+512 * 512
+https://www.ﬁshbase.se/home.htm
+512 * 512
+https://www.ﬁshbase.se/home.htm
+512 * 512
+Not available
+512 * 512
+Not available
+20 * 20
+http://groups.inf.ed.ac.uk/f4k/
+47 * 47
+Not reported http://www.image-net.org/challenges/LSVRC/
+256 * 256
+720 * 576
+200 *200
+Not reported https://swfsc.noaa.gov/
+692 * 425
+256 * 256
+800 * 600
+320 * 240
+256 * 256
+512 * 512
+224 * 224
+
+Not available
+Not available
+https://www.ﬁshbase.in/search.php
+https://www.imageclef.org/lifeclef/2016/sea
+http://ﬁshesofaustralia.net.au/
+https://www.ﬁshbase.se/home.htm
+https://www.kaggle.com/c/the-nature-
+conservancy-ﬁsheries-monitoring
+
+https://pistori.weebly.com/datasets.html
+https://bddatabase.net/us/theme/8529/
+http://groups.inf.ed.ac.uk/f4k/
+
+Sayed et al. (2018)
+
+Not reported
+
+24 ﬁsh families
+
+270
+
+Not reported https://www.ﬁshbase.se/identiﬁcation/
+
+Kartika and Herumurti (2016)
+
+Not reported
+
+9
+
+Chen et al. (2017)
+
+NCFM dataset
+
+Not reported
+
+281
+
+4777
+
+50 * 100
+
+640 * 360
+
+RegionSpeciesList.php?resultPage = 55&
+c_code=356
+https://br.pinterest.com/pin/
+810929476635332031/
+https://www.kaggle.com/c/the-nature-
+conservancy-ﬁsheries-monitoring
+
+Zheng et al. (2018)
+
+Kaggle dataset
+
+8
+
+Not reported Not reported https://www.kaggle.com/c/the-nature-
+
+Alsmadi et al. (2019)
+Alsmadi (2019)
+Rachmatullah and Supriana
+
+GIS on Fishes
+GIS on Fishes
+Fish CLEF 2015
+
+24
+24 ﬁsh families
+15
+
+400
+500
+Not reported
+
+512 * 512
+512 * 512
+408 * 171
+
+conservancy-ﬁsheries-monitoring
+https://www.ﬁshbase.se/home.htm
+https://www.ﬁshbase.se/home.htm
+http://www.imageclef.org/lifeclef/2015/ﬁsh
+
+(2018)
+
+Qiu et al. (2018)
+
+Croatian ﬁsh Dataset
+
+12
+
+794
+
+Not reported http://www.inf-cv.uni-jena.de/ﬁne_grained_
+
+recognition.html#datasets
+
+without mentioning its name, so this survey is helpful for other
+researchers since it shows the origin, number of species or families,
+number of images and the resolution of the images in datasets (as
+shown in table 2) that were used by the previous researchers in
+order to use it and make a fair comparison with their results.
+
+4. Performance comparison
+
+The performance comparison in this FC survey relies on the
+classiﬁcation accuracy using the availability of preprocessing, fea-
+ture extraction methods, databases used, main advantages, and
+contribution of the FC methods.
+
+Table 3 shows the state-of-the-art methods that used the same
+dataset; for example, the authors in (Al Smadi, 2016) and (Badawi
+and Alsmadi, 2014) have used the same dataset but with different
+classiﬁer algorithms, both works aim to classify the ﬁsh images
+into ﬁsh species and then classify them into non-dangerous and
+dangerous ﬁsh families and to recognize the non-dangerous into
+food and garden ﬁsh families and recognize the dangerous into poi-
+son and predatory ﬁsh families. Therefore; the meta-heuristic algo-
+rithms (Genetic algorithm With Iterated Local Search) and (Genetic
+Algorithm with Great Deluge algorithm) were used to signiﬁcantly
+improve the classiﬁcation accuracy of the BPC by tuning the
+parameters (weights) of the BP algorithm. The BP algorithm and
+
+hybrid GAILS-BPC in (Badawi and Alsmadi, 2014) outperformed
+the BP algorithm and GAGD-BPC in (Al Smadi, 2016) in terms of
+classiﬁcation accuracy with a percentage of 82%, 85% and
+81%,83.5% respectively.
+
+The authors in (Alsmadi et al., 2011a,b, 2010) used the same
+dataset with the same classiﬁer algorithm (BP algorithm) but each
+algorithm achieved different classiﬁcation accuracy results. This is
+because every method used different preprocessing techniques,
+features extraction methods, number of features extracted, and
+number of neurons for each neural network layer.
+
+The accuracy rates of the various FC methods are shown in
+Fig. 2, the x-axis represents the FC methods names, and the y-
+axis represents the accuracy percentages achieved by the FC tech-
+niques. The accuracy of every method is analyzed using data from
+its paper, so the mean accuracy rate is calculated. The techniques
+such as FSS algorithms with the SVM classiﬁer achieve higher accu-
+racy. Deep architecture, Binary hashing, Spatial Pyramid Pooling,
+PCA descriptors with the linear SVM classiﬁers achieve a higher
+accuracy rate. Somehow, the number of ﬁsh images, species, and
+families are crucial as well, aside from the rate of classiﬁcation.
+The substantial increase in the number of ﬁsh images and the
+number of families will necessitate the use of a combined method.
+As an example, the method in (Lee et al., 2003) was tested on 22
+ﬁsh images belonging to 9 species and it generated a high rate of
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+9
+
+Table 3
+Performance analysis of FC techniques using the same datasets.
+
+Author
+
+Origin
+
+# of ﬁsh families
+
+#. Of images size
+
+Algorithm
+
+Al Smadi (2016)
+
+GIS on Fishes 4 Dangerous families, 4 Poison families and 16
+
+320
+
+512*512 BP algorithm and GAGD-BPC
+
+Badawi and Alsmadi (2014) GIS on Fishes 4 Dangerous families, 4 Poison families and 16
+
+320
+
+512*512 BP algorithm and GAILS-BPC
+
+non-poison families
+
+non-poison families
+
+Alsmadi et al. (2010)
+Alsmadi et al. (2010)
+Alsmadi et al. (2011)
+Alsmadi et al. (2011)
+
+GIS on Fishes 16 non-poison families and 4 poison families
+GIS on Fishes 16 non-poison families and 4 poison families
+GIS on Fishes 16 non-poison families and 4 poison families
+GIS on Fishes 16 non-poison families and 4 poison families
+
+350
+610
+610
+610
+
+512*512 BP algorithm
+512*512 BP algorithm
+512*512 BP algorithm
+512*512 BP algorithm and HGAGD-BPC
+
+Classiﬁcation
+accuracy
+
+81%
+83.2%
+82%
+85%
+86%
+84%
+84%
+86%
+96%
+
+Alsmadi et al. (2019)
+
+GIS on Fishes 16 non-poison families and 8 poison families
+
+400
+
+512*512 BP algorithm and MA-B Classiﬁer 82.25%
+
+Alsmadi (2019)
+
+GIS on Fishes 16 non-poison families and 8 poison families
+
+500
+
+512*512 BP algorithm and GTB Classiﬁer
+
+90%
+82.1%
+87%
+
+Fig. 2. Classiﬁcation accuracy rate of various FC techniques.
+
+recognition. On the other hand, 350 ﬁsh images belonging to 20
+ﬁsh families were tested on other combined methods and a high
+rate of recognition was obtained (Alsmadi et al., 2011).
+
+The analysis of the performance of the techniques of FC is
+demonstrated in Table 4. Author name, FC Algorithm name, data-
+base name, classiﬁcation accuracy (%), Major advantages, and con-
+tribution of FC techniques are included in Table 4. The ﬁeld of
+author name in the table denotes the various FC papers authors.
+The ﬁeld of the FC algorithm name describes the algorithms used
+for the classiﬁcation of ﬁsh images. The databases utilized in the
+FC papers are Self-collected, CNPq-Brazil, CLEF 2015, GIS on Fishes,
+F4K, AQUARIO28E40I dataset, knowledge database, Collected by
+Benson et al. (2009) database, rockﬁsh images collected in situ
+by an ROV were provided by J. Butler, FIRS database, SeaCLEF
+2016 dataset, and Kaggle ﬁsh database. The different techniques
+classiﬁcation accuracies are from 69.57% to 100% and it is also
+demonstrated in Fig. 2. The ﬁeld of major contribution in table 4
+shows the most important work included in the FC papers and
+the ﬁeld of advantage includes the FC techniques beneﬁts.
+
+The number of extracted features is demonstrated in Fig. 3.
+The x-axis shows the name of authors of the FC techniques. The
+y-axis shows the number of the extracted features in the survey
+papers. The extracted features calculation is based on the number
+of the extracted features in FC papers. If the number of the
+extracted features is not reported in the survey papers then it is
+denoted as 0.
+
+The authors in (Alsmadi et al., 2012, 2011; Badawi and Alsmadi,
+2014; Kutlu et al., 2017) observed that increasing the number of
+extracted features effectively improves the classiﬁcation accuracy.
+From Tables 1, 2, And 4; it’s clearly understood that the combina-
+tion of the mean imputation preprocessing method, feature extrac-
+tion method FSS algorithms, and SVM method offers a higher FC
+
+accuracy result (100%) using 20 ﬁsh species which contains 1516
+images. Compared to other FC methods, SVM classiﬁcation is the
+most commonly employed classiﬁer (SVM was used 4 times to
+classify ﬁsh) which classiﬁes the ﬁsh species images. From Tables
+2 And 4, the GIS on Fishes, F4K, and knowledge databases are com-
+monly used in a lot of papers. Also, the self-collected dataset is
+employed with the SVM and provided 95.92% accuracy.
+
+As can be observed from the above-reported survey papers, the
+number is very limited as opposed to other conventional applica-
+tions of classiﬁcation. Accordingly, Alsmadi et al. (Al Smadi,
+2016; Alsmadi et al., 2012) reported several studies on ﬁsh image
+classiﬁcation problems, whereby the majority of PR-based studies
+were focusing on resolving and/or improving the traditional recog-
+nition applications. These include the studies on face recognition
+(Alsmadi, 2016), land cover classiﬁcation, ﬁngerprint identiﬁca-
+tion, eye print identiﬁcation (Thalji and Alsmadi, 2013), medical
+image segmentation (Alsmadi, 2018), Content-Based Image
+Retrieval (CBIR) (Alsmadi, 2020, 2017) as well as handwriting
+recognition. Conversely, the majority of studies on ﬁsh image clas-
+siﬁcation focusing on non-poisonous ﬁsh grounded on shape anal-
+ysis have disregarded the poison ﬁsh. Hence, people die in real life
+due to the failure to discriminate between the poisonous ﬁsh and
+non-poisonous counterparts (Al Smadi, 2016; Alsmadi et al.,
+2012, 2010).
+
+5. Future research directions
+
+This section offers several scientiﬁc problems that haven’t been
+addressed in prior FC research. Also, signiﬁcant work is essential to
+improve the efﬁciency of various FC techniques. The challenges
+that are essential to be addressed are below.
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+,
+
+.
+
+h
+t
+t
+p
+s
+:
+/
+/
+d
+o
+i
+.
+o
+r
+g
+/
+1
+0
+1
+0
+1
+6
+/
+j
+.
+j
+k
+s
+u
+c
+i
+.
+2
+0
+2
+0
+0
+7
+0
+0
+5
+
+.
+
+.
+
+Table 4
+Performance analysis of FC techniques.
+
+Author name
+
+FC algorithm name
+
+Database name
+
+Classiﬁcation
+accuracy (%)
+
+Major contribution
+
+Advantages
+
+Kaya et al. (2018)
+Lee et al. (2003)
+Lee et al. (2008)
+
+ANN
+MDC
+TADA
+
+F4K
+Self-collected
+Self-collected
+
+Mokti and Salam (2008)
+
+Not speciﬁed
+
+Not reported
+
+Nery et al. (2005)
+
+Bayesian classiﬁer
+
+CNPq-Brazil
+
+Hossain et al. (2016)
+Alsmadi et al. (2010)
+Alsmadi et al. (2010)
+Alsmadi et al. (2011)
+
+SVM
+BP algorithm
+BP algorithm
+BP algorithm
+
+CLEF 2015
+GIS on Fishes
+GIS on Fishes
+GIS on Fishes
+
+Badawi and Alsmadi (2014)
+
+GAILS-BPC
+
+GIS on Fishes
+
+Alsmadi et al. (2011)
+
+HGAGD-BPC
+
+GIS on Fishes
+
+98.88
+90
+73.3
+
+x
+
+81
+
+91.7
+86
+84
+84
+
+85
+
+96
+
+Hnin and Lynn (2016)
+
+SVM
+
+Mandalay University
+
+100
+
+_
+Is(cid:1)çizMEN et al. (2014)
+Hu et al. (2012)
+
+Naive Bayesian classiﬁer
+
+Self-collected
+
+multiclass SVM
+
+Self-collected
+
+Ogunlana et al. (2015)
+Daramola and Omololu, (2016)
+
+SVM
+BP algorithm
+
+Self-collected
+Self-collected
+
+Qin et al. (2016)
+
+linear SVM classiﬁer
+
+F4K database
+
+93.10
+
+95.92
+
+78.59
+94
+
+98.57
+
+Kratzert and Mader (2018)
+
+CNN
+
+Freitas et al. (2013)
+Mushﬁeldt et al. (2012)
+
+SVM, KNN, DT
+SVM
+
+Self-collected from
+Austrian rivers
+AQUARIO28E40I dataset 92.3
+88.5
+knowledge database
+
+93.3
+
+Chuang et al. (2016)
+
+Hierarchical partial
+classiﬁer algorithm
+
+F4K dataset
+
+Matai et al. (2010)
+Saitoh et al. (2016)
+
+PCA algorithm
+RF
+
+Self-collected
+Self-collected
+
+93.8
+
+100
+87.3
+
+Miyazono and Saitoh (2018)
+
+CNN
+
+Self-collected through
+the Web
+
+91.4
+
+Pornpanomchai et al. (2013)
+Jäger et al. (2016)
+
+ANN
+multiclass SVM
+
+FIRS database
+SeaCLEF 2016 dataset
+
+Fouad et al. (2013)
+
+ANN classiﬁer
+SVM algorithm
+
+Self- collected
+
+81.67
+66
+
+69,57
+94.44
+
+Al Smadi (2016)
+
+GAGD-BPC
+
+GIS on Fishes
+
+83.2
+
+Performed a generic FC with high accuracy
+
+Improved the contour extraction for further processing
+
+Determinate of which input information must bring
+robust ﬁsh discrimination.
+
+Extraction of shape, texture and color features
+Detection of ﬁsh landmark points and contour features More efﬁcient for ﬁnding the essential landmark points
+More efﬁcient for ﬁnding the essential landmark points
+Finding critical landmark points on the ﬁsh contour
+using CF analysis
+Improve result in terms of region grouping and obtained
+clearer boundaries of segmented regions.
+Propose a general set of features and their correspondent
+weights that can be used as a priori information by the
+classiﬁer
+detection ﬁsh in low-quality underwater video
+Extraction of size and shape measurements
+Extraction of color texture information
+Extraction of statistical features standard deviation,
+homogeneity, and energy
+Extraction of anchor points, texture, and statistical
+features
+Extraction of Potential Local Geometric Features (PLGF)
+and shape measurements
+automated taxonomic identiﬁcation of the species using
+a morphometric variation among ﬁsh species
+Extraction of color, and statistical texture features
+
+Better accuracy for detecting and identifying ﬁshes
+Wealthy capability for size and shape analysis
+Wealthy capability for Color texture analysis
+A reliable method for FC based on color signature
+
+Identiﬁed taxonomic characters of ﬁsh species based on
+specimens
+Robust features & achieve good results
+
+Performed a generic FC with high accuracy
+
+Robust features & achieve good results
+
+Extraction of statistical texture features, and wavelet-
+based texture features in different color space
+
+Extraction of shape features
+Classiﬁed ﬁsh images into distinct classes based on their
+physical form
+Find a solution to accurate underwater object
+recognition.
+An approach for ﬁsh species classiﬁcation in video-based
+monitoring
+Extraction of color information
+Segmentation of ﬁsh image to obtain shape and color
+representation
+Propose a framework that consists of a fully
+unsupervised feature learning technique and an error-
+resilient classiﬁer.
+PCA for FC
+Propose a ﬁsh image recognition method using feature
+points (Geometric, Bags of visual words model and
+texture features) for ﬁsh images with complicated
+backgrounds
+Propose a novel feature-points representation method
+named annotated image, and propose a ﬁsh species
+recognition method based on CNN
+Extraction of shape, texture and color information
+Apply CNNs for object detection as well as ﬁsh species
+classiﬁcation
+Introduces an automatic classiﬁcation approach for the
+Nile Tilapia ﬁsh using SVMs algorithm in conjunction
+with feature extraction techniques based on SIFT and
+SURF algorithms.
+Extraction of anchor points, texture, and statistical
+features
+
+Wavelet domain feature extractor with Bior4.4 wavelet
+ﬁlter in HSV color space is the best features for ﬁsh
+species
+Reliable and adequate method for FC
+An accurate system capable of classifying ﬁsh images
+
+Robust features & achieve good results
+
+Achieve good results
+
+An accurate system capable of classifying ﬁsh images
+Achieve good results
+
+Achieves high accuracy on both public and self-collected
+underwater ﬁsh images
+
+Reliable algorithm for FC
+Wealthy capability for Geometric, Bags of visual words
+model and texture analysis
+
+Effective recognition performance
+
+Reliable algorithm for FC
+Effective for ﬁsh object detection
+
+Effective classiﬁcation performance
+
+Performed a generic FC with high accuracy
+
+1
+0
+
+M
+K
+
+.
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+,
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+/
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+i
+
+K
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+
+x
+x
+x
+
+(
+x
+x
+x
+x
+)
+
+x
+x
+x
+
+P
+l
+e
+a
+s
+e
+
+c
+i
+t
+e
+
+t
+h
+i
+s
+
+a
+r
+t
+i
+c
+l
+e
+
+a
+s
+:
+
+M
+
+.
+
+K
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+
+a
+n
+d
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+
+,
+
+A
+s
+u
+r
+v
+e
+y
+
+o
+n
+
+ﬁ
+s
+h
+
+c
+l
+a
+s
+s
+i
+
+ﬁ
+c
+a
+t
+i
+o
+n
+
+t
+e
+c
+h
+n
+i
+q
+u
+e
+s
+,
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+K
+i
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+,
+
+.
+
+h
+t
+t
+p
+s
+:
+/
+/
+d
+o
+i
+.
+o
+r
+g
+/
+1
+0
+1
+0
+1
+6
+/
+j
+.
+j
+k
+s
+u
+c
+i
+.
+2
+0
+2
+0
+0
+7
+0
+0
+5
+
+.
+
+.
+
+P
+l
+e
+a
+s
+e
+
+c
+i
+t
+e
+
+t
+h
+i
+s
+
+a
+r
+t
+i
+c
+l
+e
+
+a
+s
+:
+
+M
+
+.
+
+K
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+
+a
+n
+d
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+
+,
+
+A
+s
+u
+r
+v
+e
+y
+
+o
+n
+
+ﬁ
+s
+h
+
+c
+l
+a
+s
+s
+i
+
+ﬁ
+c
+a
+t
+i
+o
+n
+
+t
+e
+c
+h
+n
+i
+q
+u
+e
+s
+,
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+K
+i
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+Table 4 (continued)
+
+Author name
+
+FC algorithm name
+
+Database name
+
+Classiﬁcation
+accuracy (%)
+
+Major contribution
+
+Advantages
+
+Ali-Gombe et al. (2017)
+
+Deep CNN
+
+Kaggle ﬁsh database
+
+97.20
+
+Sayed et al. (2018)
+
+SVM and DT
+
+adopted ﬁsh dataset
+
+Kutlu et al. (2017)
+
+Nearest Neighbour
+algorithm
+
+Self-collected
+
+96
+
+99
+
+Hernández-Serna and Jiménez-
+
+Neural Network
+
+Self-collected
+
+91.65
+
+Segura (2014)
+
+Kartika and Herumurti, 2016)
+
+Chen et al. (2017)
+
+Andayani et al. (2019)
+
+Alsmadi et al. (2019)
+
+SVM and Naive Bayes
+algorithm
+CNNs
+
+Self-collected
+
+NCFM dataset
+
+94
+
+70
+
+Probabilistic Neural
+Network
+MA-B Classiﬁer
+
+Self-collected
+
+89.65
+
+GIS on Fishes
+
+Alsmadi (2019)
+
+GTB Classiﬁer
+
+GIS on Fishes
+
+Islam et al. (2019)
+
+SVM
+
+BDIndigenousFish2019
+
+90
+
+Chhabra et al. (2020)
+
+Stacking ensemble model
+
+Self-collected
+
+Taheri-Garavand et al. (2020)
+
+deep CNN
+
+Self-collected
+
+Yusup et al. (2020)
+
+Rekha et al. (2019)
+
+YOLO Deep Learning
+algorithm
+CNN
+
+Self-collected
+
+Self-collected
+
+93.8
+
+98.21
+
+82.82
+
+92
+
+dos Santos and Gonçalves (2019) CNN
+
+AQUARIO28E40I dataset 96
+
+90
+
+87
+
+Analyzed the performance of deep CNNs on noisy
+images of ﬁsh species
+Proposed an automated ﬁsh species identiﬁcation
+system based on a modiﬁed CSA.
+Finding critical landmark points on the ﬁsh contour and
+Extraction shape measurements using distance
+measurements
+Extraction of geometrical, and texture and
+morphological features
+Extraction of RGB to HSV color features
+
+Extraction of context information features
+
+Extraction of geometric invariant moment feature,
+GLCM texture feature and color feature
+Extraction of anchor points, texture, and statistical
+features
+Extraction of anchor points, color texture, and color
+features
+It can extract different types of features using two
+different binary patterns
+It can easily detect simple features like edges, simple
+shapes
+It can automatically extract features directly from
+images
+It can identify the ﬁsh object automatically
+
+CNN, with different architectures, was used at the
+detection and classiﬁcation step for features extraction
+and analysis
+Improving the classiﬁcation of ﬁsh species with similar
+characteristics
+
+High accuracy and effective FC based on the noisy image
+
+Flexible feature selection and high FC accuracy
+
+Wealthy capability for size and shape analysis
+
+Does not depend on variations
+
+Robust features and achieve good results
+
+Handle the variation of pose and scale of ﬁsh and extract
+discriminative features to distinguish ﬁsh
+Classify ﬁsh species effectively and efﬁciently
+
+Performed a generic FC with high accuracy
+
+Robust features and achieve good results
+
+Effective classiﬁcation performance
+
+High accuracy and effective FC based on the noisy image
+
+Overcoming the complexity and difﬁculties of the
+traditional methods
+Faster object detection
+
+Effective recognition performance
+
+Effective recognition performance
+
+M
+K
+
+.
+
+.
+
+A
+l
+s
+
+m
+a
+d
+i
+,
+
+I
+.
+
+l
+
+A
+m
+a
+r
+a
+s
+h
+d
+e
+h
+/
+
+J
+o
+u
+r
+n
+a
+l
+
+o
+f
+
+i
+
+K
+n
+g
+
+S
+a
+u
+d
+U
+n
+i
+v
+e
+r
+s
+i
+t
+y
+
+–
+
+C
+o
+m
+p
+u
+t
+e
+r
+
+a
+n
+d
+
+I
+n
+f
+o
+r
+m
+a
+t
+i
+o
+n
+
+S
+c
+i
+e
+n
+c
+e
+s
+
+x
+x
+x
+
+(
+x
+x
+x
+x
+)
+
+x
+x
+x
+
+1
+1
+
+12
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+Fig. 3. Number of extracted features.
+
+DL typically has attained promising results in the pattern recog-
+nition ﬁeld, but the DL models’ context is not fully recognized and
+is considered to be a black box. For instance, numerous researchers
+modiﬁed the well-known DL algorithms, like CNN or Deep NN, for
+improving classiﬁcation efﬁciency (Rawat and Wang, 2017; Pak
+and Kim, 2017; Yang et al., 2018). Also, it is challenging to discover
+the optimal values and correct conﬁguration for the node numbers
+and layer numbers in various layers. The information of the basic
+domain is necessary also for choosing values for the epoch’s num-
+ber, rate of learning, and the regularizer strength. Thus; in the
+future, approaches for automatic optimization can be introduced
+for determining optimum values for various elements of DL archi-
+tecture for speciﬁc datasets for FC and other datasets for pattern
+recognition.
+
+Moreover, investigating several aspects of recurrent neural net-
+works and deep neural networks for learning the ﬁsh shape to
+evaluate and design effective solutions is necessary. A method rely-
+ing on combining hand-craft features and deep features extracted
+by CNN (Hassaballah and Awad, 2016) as well as integrating the
+global shape constraints into the architecture of CNN to entirely
+utilize the deep model’s power would be of concern research direc-
+tion. Furthermore, multi-task learning using fusing intermediate
+layers and CNNs from CNN to bring both semantically and geome-
+try rich features together may produce an enhanced performance
+of detection.
+
+CNN-based models provide a high classiﬁcation accuracy even
+with the usual limitations of translation, rotation, overlapping,
+amongst others. But, having to try to collect and correct large
+amounts of sample images manually for training remains a strong
+limitation. Thus, methods that depend on artiﬁcial training data
+are proposed. Some rely on the data augmentation concept using
+the existing data samples and application of afﬁne transformations
+for increasing the number of available samples for each class. Fur-
+thermore, transfer learning was considered for addressing this
+matter, as it reproduces a model success on a similar task. Recently
+Ali-Gombe et al. (Ali-Gombe et al., 2017) introduced a comparative
+study of transfer learning and data augmentation on the FC con-
+text, they concluded that data manual annotation was a funda-
+mental requirement for increasing rates of accuracy for these
+options.
+
+Typically, DL algorithms require a large amount of training data.
+When the range of training is limited, it won’t produce precise
+enough results (Ha et al., 2018; Doreswamy and Santosh, 2018).
+Moreover, the DL algorithm’s efﬁciency will be improved on mas-
+sive ﬁsh datasets. There are two methods to solve this issue. By uti-
+lizing low learning algorithms for capturing training data, or by
+using a variety of enhancing approaches, including color casting,
+rotating, and cropping. Additional investigations are essential for
+producing more detailed training data, such that training the DL
+design with more distinguishing features and reliability.
+
+Adding preprocessing methods which are speciﬁcally designed
+before feature extraction can efﬁciently enhance the FC system
+performance in sever variations case as well as improving methods
+that use color information as an alternative of grey images.
+
+Like other domains, FC beneﬁted from the integration of multi-
+ple sources of information. The sources of information may include
+ﬁsh texture analysis, the shape of various shape parts, color signa-
+ture, distances ratios in the ﬁsh object, etc. this may help in robust
+feature extraction and reaching improved classiﬁcation results.
+
+More comparative studies can be performed with other DL
+architectures for ﬁsh image detection and classiﬁcation on multi-
+ple ﬁsh images and particularly video datasets obtained in the
+unlimited underwater environment. It could be of interest to
+investigate the improvement of performance by involving the
+color signature information in DL architecture training such as
+CNN. More work needs to be investigated on the underwater ﬁsh
+species faced by water turbidity, background confusion, and envi-
+ronmental challenges. Underwater ﬁsh species’ real-time moni-
+toring can be further enhanced to improve classiﬁcation
+performance.
+
+6. Conclusion
+
+This survey paper provided a comprehensive review of datasets,
+preprocessing techniques, feature extraction methods, and classiﬁ-
+cation algorithms for the FC domain. In the preprocessing stage,
+several methods were reviewed such as anchor points detection,
+ROI extraction, and image enhancement. In addition, the conven-
+tional feature extraction methods were classiﬁed into ﬁve groups
+local and global feature-based
+(shape feature-based methods,
+methods, color feature-based methods,
+texture feature-based
+methods, and the combination-based feature extraction methods).
+The performance of the previous FC works is compared relying on
+the used datasets, number of ﬁsh images, number of ﬁsh species/-
+families, number of extracted features, major contributions, and
+classiﬁcation accuracy. Moreover; the advantages of algorithms
+are elaborated and discussed to achieve this survey goal. For efﬁ-
+cient performance, the most used dataset is the GIS on Fishes,
+F4K, and knowledge database. Fish image resizing, ﬁsh detection,
+landmark/anchor points and image cropping methods are mostly
+utilized in the preprocessing step. For feature extraction; distance
+and angle measurements, GLCM, Gabor ﬁlter, SIFT, and SURF are
+most commonly used. For classiﬁcation; the most commonly used
+algorithms are SVM, BP algorithm, HGAGD-BPC, GAILS-BPC, Baye-
+sian classiﬁer, and CNN. In conclusion, the authors expect this work
+to be beneﬁcial for the industrial ﬁeld, agriculture domain, and
+for new FC
+marine scientists, and a useful starting point
+approaches, and a common ground for a wide range of beneﬁts
+in the area of FC.
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+13
+
+Conﬂict of interest
+
+The authors declare that there is no conﬂict of interest regard-
+
+ing the publication of this paper.
+
+References
+
+Abdeldaim, A.M., Houssein, E.H., Hassanien, A.E., 2018. Color image segmentation of
+ﬁshes with complex background in water. In: International Conference on
+Advanced Machine Learning Technologies and Applications, pp. 634–643.
+Abhang, P.A., Gawali, B.W., Mehrotra, S.C., 2016. Introduction to EEG-and speech-
+
+based emotion recognition. Academic Press.
+
+Al Smadi, B.S., 2016. Applications of meta-heuristic algorithm with back
+propagation classiﬁer for handling class of general ﬁsh models. Int. J. Comput.
+Sci. Network Security (IJCSNS) 16, 38.
+
+Ali-Gombe, A., Elyan, E., Jayne, C., 2017. Fish classiﬁcation in context of noisy
+images. In: International Conference on Engineering Applications of Neural
+Networks, pp. 216–226.
+
+Alsmadi, M., 2016. Facial recognition under expression variations. Int. Arab J. Inf.
+
+Technol. 13, 133–141.
+
+Alsmadi, M.K., 2017. Query-sensitive similarity measure for content-based image
+retrieval using meta-heuristic algorithm. J. King Saud Univ. – Comput. Inf. Sci.
+Alsmadi, M.K., 2018. A hybrid Fuzzy C-Means and Neutrosophic for jaw lesions
+
+segmentation. Ain Shams Eng. J. 9, 697–706.
+
+Alsmadi, M.K., 2019. Hybrid genetic algorithm with Tabu search with back-
+propagation algorithm for ﬁsh classiﬁcation: determining the appropriate
+feature set. Int. J. Appl. Eng. Res. 14, 4387–4396.
+
+Alsmadi, M.K., 2020. Content-based image retrieval using color, shape and texture
+
+descriptors and features. Arab. J. Sci. Eng., 1–14
+
+Alsmadi, M.K., Omar, K.B., Noah, S.A., Almarashdeh, I., 2010a. Fish recognition based
+on robust features extraction from color texture measurements using back-
+propagation classiﬁer. J. Theor. Appl. Inf. Technol. 18.
+
+Alsmadi, M., Omar, K.B., Noah, S.A., Almarashdeh, I., 2010b. Fish recognition based
+on robust features extraction from size and shape measurements using neural
+network. J. Comput. Sci. 6, 1088–1094.
+
+Alsmadi, M., Omar, K., Noah, S., Almarashdeh, I., 2011a. A hybrid memetic algorithm
+with back-propagation classiﬁer for ﬁsh classiﬁcation based on robust features
+extraction from PLGF and shape measurements. Inf. Technol. J. 10, 944–954.
+Alsmadi, M.K., Omar, K.B., Noah, S.A., 2011b. Fish classiﬁcation based on robust
+features extraction from color signature using back-propagation classiﬁer. J.
+Comput. Sci. 7, 52.
+
+Alsmadi, M., Omar, K., Almarashdeh, I., 2012. Fish Classiﬁcation: Fish Classiﬁcation
+Using Memetic Algorithms with Back Propagation Classiﬁer. LAP LAMBERT
+Academic Publishing.
+
+Alsmadi, M.K., Tayfour, M., Alkhasawneh, R.A., Badawi, U., Almarashdeh, I., Haddad,
+F., 2019. Robust feature extraction methods for general ﬁsh classiﬁcation. Int. J.
+Elec. Comput. Eng. 2088–8708 (9), 5192–5204.
+
+Amanullah Baloch, D., Ali, M., Gul, F., Basir, S., Afzal,
+
+Segmentation Algorithm (FISA) for improving the performance of
+retrieval system. Int. J. Adv. Comput. Sci. Appl. 8, 396–403.
+
+I., 2017. Fish Image
+image
+
+Andayani, U., Wijaya, A., Rahmat, R., Siregar, B., Syahputra, M., 2019. Fish species
+
+classiﬁcation using probabilistic neural network. J. Phys. Conf. Ser.
+
+Badawi, U.A., Alsmadi, M.K.S., 2013. A hybrid memetic algorithm (genetic algorithm
+and great deluge local search) with back-propagation classiﬁer for ﬁsh
+recognition. Int. J. Comput. Sci. Issues 10, 348–356.
+
+Badawi, U.A., Alsmadi, M.K., 2014. A general ﬁsh classiﬁcation methodology using
+meta-heuristic algorithm with back propagation classiﬁer. J. Theor. Appl. Inf.
+Technol. 66, 803–812.
+
+Bermejo, S., 2007. Fish age classiﬁcation based on length, weight, sex and otolith
+
+morphological features. Fish. Res. 84, 270–274.
+
+Cabreira, A.G., Tripode, M., Madirolas, A., 2009. Artiﬁcial neural networks for ﬁsh-
+
+species identiﬁcation. ICES J. Mar. Sci. 66, 1119–1129.
+
+Castignolles, N., Cattoen, M., Larinier, M., 1994. Identiﬁcation and counting of live
+
+ﬁsh by image analysis. In: Image and Video Processing II. 209, p. 200.
+
+Checcucci, E., Autorino, R., Cacciamani, G.E., Amparore, D., De Cillis, S., Piana, A.,
+Piazzolla, P., Vezzetti, E., Fiori, C., Veneziano, D., 2019. Artiﬁcial intelligence and
+neural networks in urology: current clinical applications. Minerva Urologica e
+Nefrologica= Italian J. Urol. Nephrol. 72, 49–57.
+
+Chen, G., Sun, P., Shang, Y., 2017. Automatic ﬁsh classiﬁcation system using deep
+learning. In: 2017 IEEE 29th International Conference on Tools with Artiﬁcial
+Intelligence (ICTAI), pp. 24–29.
+
+Chhabra, H.S., Srivastava, A.K., Nijhawan, R., 2020. A hybrid deep learning approach
+for automatic ﬁsh classiﬁcation. In: Proceedings of ICETIT 2019. Springer, pp.
+427–436.
+
+Choi, S., 2015. Fish identiﬁcation in underwater video with deep convolutional
+neural network: SNUMedinfo at LifeCLEF ﬁsh task 2015. CLEF (Working Notes).
+Chuang, M.-C., Hwang, J.-N., Williams, K., 2016. A feature learning and object
+recognition framework for underwater ﬁsh images. IEEE Trans. Image Process.
+25, 1862–1872.
+
+Cui, S., Zhou, Y., Wang, Y., Zhai, L., 2020. Fish detection using deep learning. Appl.
+
+Comput. Intel. Soft Comput. 2020, 3738108.
+
+Daramola, S., Omololu, O., 2016. Fish classiﬁcation algorithm using single
+value decomposition. Int. J. Innovat. Res. Sci., Eng. Technol., 5, pp. 1621–
+1626.
+
+Ding, G., Song, Y., Guo, J., Feng, C., Li, G., He, B., Yan, T., 2017. Fish recognition using
+convolutional neural network. In: OCEANS – Anchorage, 2017, Anchorage, AK,
+USA, pp. 1–4.
+
+Doreswamy, G., Santosh, K.J., 2018. Prediction accuracy comparison of predictive
+models using machine learning for diabetes data set. Int. J. Adv. Res. Comput.
+Sci. 9, 86.
+
+dos Santos, A.A., Gonçalves, W.N., 2019. Improving Pantanal ﬁsh species recognition
+through taxonomic ranks in convolutional neural networks. Ecol. Inf. 53.
+Fouad, M.M.M., Zawbaa, H.M., El-Bendary, N., Hassanien, A.E., 2013. Automatic nile
+tilapia ﬁsh classiﬁcation approach using machine learning techniques. In: 2013
+13th International Conference on Hybrid Intelligent Systems (HIS), pp. 173–
+178.
+
+Fouad, M.M., Zawbaa, H.M., Gaber, T., Snasel, V., Hassanien, A.E., 2016. A ﬁsh
+detection approach based on BAT algorithm.
+International
+Conference on Advanced Intelligent System and Informatics (AISI2015),
+November 28-30, 2015, Beni Suef, Egypt, pp. 273–283.
+
+In: The 1st
+
+Freitas, U., Gonçalves, W.N., Matsubara, E.T., Sabino, J., Borth, M.R., Pistori, H. Using
+
+Color for Fish Species Classiﬁcation, 2013.
+
+Ha, J., Eun, J., Ahn, P., Shin, D.H., Kim, J., 2018. Learning convolutional neural
+network using data from other domains in case of insufﬁcient data.
+In:
+Proceedings of the 2018 International Conference on Information Science and
+System, pp. 122–126.
+
+Hasija, S., Buragohain, M.J., Indu, S., 2017. Fish species classiﬁcation using graph
+In: 2017 International Conference on
+
+embedding discriminant analysis.
+Machine Vision and Information Technology (CMVIT), pp. 81–86.
+
+Hassaballah, M., Awad, A.I., 2016. Detection and description of image features: an
+introduction. In: Image Feature Detectors and Descriptors. Springer, pp. 1–8.
+Hernández-Serna, A., Jiménez-Segura, L.F., 2014. Automatic identiﬁcation of species
+
+with neural networks. PeerJ 2.
+
+Hnin, T.T., Lynn, K.T., 2016. Fish classiﬁcation based on robust features selection
+using machine learning techniques. In: Zin, T.T., Lin, J.C.-W., Pan, J.-S., Tin, P.,
+Yokota, M. (Eds.), Genetic and Evolutionary Computing: Proceedings of the
+Ninth International Conference on Genetic and Evolutionary Computing, August
+26-28, 2015, Yangon, Myanmar - Volume 1. Springer International Publishing,
+Cham, pp. 237–245.
+
+Hossain, E., Alam, S.S., Ali, A.A., Amin, M.A., 2016. Fish activity tracking and species
+identiﬁcation in underwater video. In: 2016 5th International Conference on
+Informatics, Electronics and Vision (ICIEV), pp. 62–66.
+
+Hu, J., Li, D., Duan, Q., Han, Y., Chen, G., Si, X., 2012. Fish species classiﬁcation by
+color, texture and multi-class support vector machine using computer vision.
+Comput. Electron. Agric. 88, 133–140.
+
+Ibrahim, A., Ahmed, A., Hussein, S., Hassanien, A.E., 2018. Fish image segmentation
+
+using Salp Swarm Algorithm. Cham, 42–51.
+
+_
+Is(cid:1)çizMEN, Bilal, Kutlu, Yakup, Reyhaniye, Asil Nadir, Turan, Cemal, 2014. Image
+analysis methods on ﬁsh recognition. In: 2014 22nd Signal Processing and
+Communications Applications Conference (SIU), pp. 1411–1414.
+
+Is(cid:1)çimen, B., Kutlu, Y., Turan, C., 2018. Performance comparison of different sized
+
+regions of interest on ﬁsh classiﬁcation. Selçuk-Teknik Dergisi, 11–26.
+
+Islam, M.A., Howlader, M.R., Habiba, U., Faisal, R.H., Rahman, M.M., 2019.
+Indigenous ﬁsh classiﬁcation of Bangladesh using hybrid features with SVM
+classiﬁer. In: 2019 International Conference on Computer, Communication,
+Chemical, Materials and Electronic Engineering (IC4ME2), pp. 1–4.
+
+Jäger, J., Rodner, E., Denzler, J., Wolff, V., Fricke-Neuderth, K., SeaCLEF 2016: object
+proposal classiﬁcation for ﬁsh detection in underwater videos, in CLEF (Working
+Notes), 2016, pp. 481-489.
+
+Karami, E., Shehata, M., Smith, A., Image identiﬁcation using SIFT algorithm:
+Performance analysis against different image deformations, arXiv preprint
+arXiv:1710.02728, 2017.
+
+Kaya, E., Saritas(cid:1),
+
+Kartika, D.S.Y., Herumurti, D., 2016. Koi ﬁsh classiﬁcation based on HSV color space.
+In: 2016 International Conference on Information & Communication
+Technology and Systems (ICTS), pp. 96–100.
+
+_
+I., Tas(cid:1)demir, S(cid:1). Classiﬁcation of Three Different Fish Species by
+Artiﬁcial Neural Networks Using Shape, Color and Texture Properties, presented
+at the 7th International Conference on Advanced Technologies (ICAT’18), At
+Antalya, Turkey, 2018.
+
+Kratzert, F., Mader, H. Fish species classiﬁcation in underwater video monitoring
+using Convolutional Neural Networks, OpenKratzert, Frederik, and Helmut
+Mader. Fish Species Classiﬁcation in Underwater Video Monitoring Using
+Convolutional Neural Networks. EarthArXiv, vol. 15, 2018.
+
+Kumar, P., 2018. An hybrid approach of LBP and Hu moment invariant features for
+
+ﬁsh species classiﬁcation. Int. J. Eng. Res. Develop. 14, 37–44.
+
+Kutlu, Y., Iscimen, B., Turan, C., 2017. Multi-stage ﬁsh classiﬁcation system using
+
+morphometry. Fresenius Environ. Bull. 26, 1911–1917.
+
+Larsen, R., Olafsdottir, H., Ersbøll, B.K. Shape and Texture Based Classiﬁcation of Fish
+
+Species, in Image Analysis, Berlin, Heidelberg, 2009, pp. 745-749.
+
+Lee, D.-J., Archibald, J.K., Schoenberger, R.B., Dennis, A.W., Shiozawa, D.K., 2008.
+Contour matching for ﬁsh species recognition and migration monitoring. In:
+Applications of Computational Intelligence in Biology. Springer, pp. 183–207.
+
+Lee, D., Redd, S., Schoenberger, R., Xu, X., Zhan, P., 2003. An automated ﬁsh species
+classiﬁcation and migration monitoring system.
+In: Industrial Electronics
+Society, 2003. IECON’03. The 29th Annual Conference of the IEEE, pp. 1080–
+1085.
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+14
+
+M.K. Alsmadi, I. Almarashdeh / Journal of King Saud University – Computer and Information Sciences xxx (xxxx) xxx
+
+Matai, J., Kastner, R., Cutter Jr, G., Demer, D., 2010. Automated techniques for
+detection and recognition of ﬁshes using computer vision algorithms. NOAA
+Technical Memorandum NMFS-F/SPO-121, Report of the National Marine
+Fisheries Service Automated Image Processing Workshop, Williams K., Rooper
+C., Harms J., Eds., Seattle, Washington (September 4–7 2010).
+
+Mirjalili, S., Gandomi, A.H., Mirjalili, S.Z., Saremi, S., Faris, H., Mirjalili, S.M., 2017.
+Salp Swarm Algorithm: a bio-inspired optimizer for engineering design
+problems. Adv. Eng. Softw. 114, 163–191.
+
+Miyazono, T., Saitoh, T., 2018. Fish species recognition based on CNN using
+annotated image. In: IT Convergence and Security 2017. Springer, pp. 156–163.
+Mokti, M.N., Salam, R.A., 2008. Hybrid of Mean-shift and median-cut algorithm for
+ﬁsh segmentation. In: 2008 International Conference on Electronic Design, ICED
+2008, pp. 1–5.
+
+Mushﬁeldt, D., Ghaziasgar, M., Connan, J., 2012. Fish identiﬁcation system. In:
+Proceedings of South African Telecommunication Networks and Applications
+Conference (SATNAC 2012), pp. 231–236.
+
+Nery, M., Machado, A., Campos, M.F.M., Pádua, F.L., Carceroni, R., Queiroz-Neto, J.P.,
+2005. Determining the appropriate feature set for ﬁsh classiﬁcation tasks. In:
+Computer Graphics and Image Processing, 2005. SIBGRAPI 2005. 18th Brazilian
+Symposium on, 2005, pp. 173–180.
+
+Salman, A., Jalal, A., Shafait, F., Mian, A., Shortis, M., Seager, J., Harvey, E., 2016. Fish
+species classiﬁcation in unconstrained underwater environments based on deep
+learning. Limnol. Oceanogr. Methods 14, 570–585.
+
+Sayed, G.I., Hassanien, A.E., Gamal, A., Ella, H.A., 2018. An Automated Fish Species
+
+Identiﬁcation System Based on Crow Search Algorithm. Cham, 112–123.
+
+Sharmin, I., Islam, N.F., Jahan, I., Joye, T.A., Rahman, M.R., Habib, M.T., 2019. Machine
+
+vision based local ﬁsh recognition. SN Appl. Sci. 1, 1529.
+
+Siddiqui, S.A., Salman, A., Malik, M.I., Shafait, F., Mian, A., Shortis, M.R., Harvey, E.S.,
+2018. Automatic ﬁsh species classiﬁcation in underwater videos: exploiting
+pre-trained deep neural network models to compensate for limited labelled
+data. ICES J. Mar. Sci. 75, 374–389.
+
+Singh, P., Pandey, D., 2014. Shape-based ﬁsh recognition using neural network. Int. J.
+
+Emerg. Res. Manage. Technol. 3, 121–126.
+
+Sung, M., Yu, S.-C., Girdhar, Y., 2017. Vision based real-time ﬁsh detection using
+
+convolutional neural network. In: OCEANS 2017-Aberdeen, pp. 1–6.
+
+Sze, C.-J., Tyan, H.-R., Liao, H.-Y.M., Lu, C.-S., Huang, S.-K., 1999. Shape-based
+
+retrieval on a ﬁsh database of Taiwan. 淡江理工學刊 2, 163–173.
+
+Taheri-Garavand, A., Nasiri, A., Banan, A., Zhang, Y.-D., 2020. Smart deep learning-
+based approach for non-destructive freshness diagnosis of common carp ﬁsh. J.
+Food Eng. 278.
+
+Ogunlana, S., Olabode, O., Oluwadare, S., Iwasokun, G., 2015. Fish classiﬁcation
+
+Thalji, Z., Alsmadi, M., 2013. Iris Recognition using robust algorithm for eyelid,
+
+using support vector machine. African J. Comput. ICT 8, 75–82.
+
+eyelash and shadow avoiding. World Appl. Sci. J. 25, 858–865.
+
+Pak, M., Kim, S., 2017. A review of deep learning in image recognition. In: 2017 4th
+International Conference on Computer Applications and Information Processing
+Technology (CAIPT), pp. 1–3.
+
+Thorat, P., Tongaonkar, R., Jagtap, V., 2020. Towards designing the best model for
+classiﬁcation of ﬁsh species using. In: Proceeding of International Conference on
+Computational Science and Applications: ICCSA 2019, p. 343.
+
+Paschos, G., 2001. Perceptually uniform color spaces for color texture analysis: an
+
+empirical evaluation. IEEE Trans. Image Process. 10, 932–937.
+
+Pornpanomchai, C., Lurstwut, B., Leerasakultham, P., Kitiyanan, W., 2013. Shape
+and texture-based ﬁsh image recognition system. Kasetsart J.-Nat. Sci. 47, 624–
+634.
+
+Qin, H., Li, X., Liang, J., Peng, Y., Zhang, C., 2016. DeepFish: accurate underwater live
+
+ﬁsh recognition with a deep architecture. Neurocomputing 187, 49–58.
+
+Qiu, C., Zhang, S., Wang, C., Yu, Z., Zheng, H., Zheng, B., 2018. Improving transfer
+learning and squeeze- and-excitation networks for small-scale ﬁne-grained ﬁsh
+image classiﬁcation. IEEE Access 6, 78503–78512.
+
+Rachmatullah, M.N., Supriana, I., 2018. Low resolution image ﬁsh classiﬁcation
+using convolutional neural network. In: 2018 5th International Conference on
+Advanced Informatics: Concept Theory and Applications (ICAICTA), pp. 78–83.
+Rawat, W., Wang, Z., 2017. Deep convolutional neural networks for image
+
+classiﬁcation: a comprehensive review. Neural Comput. 29, 2352–2449.
+
+Rekha, B., Srinivasan, G., Reddy, S.K., Kakwani, D., Bhattad, N., 2019. Fish detection
+and classiﬁcation using convolutional neural networks.
+International
+Conference on Computational Vision and Bio Inspired Computing, pp. 1221–
+1231.
+
+In:
+
+Saberioon, M., Císarˇ, P., Labbé, L., Soucˇek, P., Pelissier, P., Kerneis, T., 2018.
+Comparative performance analysis of support vector machine, random forest,
+logistic regression and k-nearest neighbours in Rainbow Trout (Oncorhynchus
+Mykiss) classiﬁcation using image-based features. Sensors 18, 1027.
+
+Saitoh, T., Shibata, T., Miyazono, T., 2016. Feature, points based ﬁsh image
+recognition. Int. J. Comput. Inf. Syst. Ind. Manage. Appl. ISSN, 2150–7988.
+
+Vincent, O.R., Folorunso, O., 2009. A descriptive algorithm for sobel image edge
+detection. In: Proceedings of Informing Science & IT Education Conference
+(InSITE), pp. 97–107.
+
+Wishkerman, A., Boglino, A., Darias, M.J., Andree, K.B., Estévez, A., Gisbert, E., 2016.
+Image analysis-based classiﬁcation of pigmentation patterns in ﬁsh: a case
+study of pseudo-albinism in Senegalese sole. Aquaculture 464, 303–308.
+
+Yang, L., MacEachren, A.M., Mitra, P., Onorati, T., 2018. Visually-enabled active deep
+learning for (geo) text and image classiﬁcation: a review. ISPRS Int. J. Geo-Inf. 7,
+65.
+
+Yao, H., Duan, Q., Li, D., Wang, J., 2013. An improved K-means clustering algorithm
+
+for ﬁsh image segmentation. Math. Comput. Modell. 58, 790–798.
+
+Yu, C., Fan, X., Hu, Z., Xia, X., Zhao, Y., Li, R., Bai, Y., 2020. Segmentation and
+measurement scheme for ﬁsh morphological features based on Mask R-CNN.
+Information Processing in Agriculture.
+
+Yusup, I., Iqbal, M., Jaya, I., 2020. Real-time reef ﬁshes identiﬁcation using deep
+In: IOP Conference Series: Earth and Environmental Science, p.
+
+learning.
+012046.
+
+Zheng, Z., Guo, C., Zheng, X., Yu, Z., Wang, W., Zheng, H., Fu, M., Zheng, B., 2018. ‘‘Fish
+recognition from a vessel camera using deep convolutional neural network and
+data augmentation. In: 2018 OCEANS-MTS/IEEE Kobe Techno-Oceans (OTO), pp.
+1–5.
+
+Zion, B., Shklyar, A., Karplus, I., 1999. Sorting ﬁsh by computer vision. Comput.
+
+Electron. Agric. 23, 175–187.
+
+Zion, B., Shklyar, A., Karplus, I., 2000. In-vivo ﬁsh sorting by computer vision.
+
+Aquacult. Eng. 22, 165–179.
+
+Please cite this article as: M. K. Alsmadi and I. Almarashdeh, A survey on ﬁsh classiﬁcation techniques, Journal of King Saud University – Computer and
+Information Sciences, https://doi.org/10.1016/j.jksuci.2020.07.005
+
+
