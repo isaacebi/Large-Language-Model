@@ -1,2 +1,8 @@
 
 .env
+*.pdf
+*.txt
+/notebooks/db
+*.json
+*.md
+*.pdf
